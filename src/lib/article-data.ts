@@ -1,0 +1,1140 @@
+import type { Article } from "./types";
+
+export const articles: Article[] = [
+  {
+    slug: "gta-6-leak-waiting-room",
+    code: "VI",
+    accent: "#ec008c",
+    ink: "#e8fbff",
+    category: "platforms",
+    kicker: "The leak",
+    title: "GTA6 Don’t sell the leaks, sell the waiting room.",
+    dek: "The leak is the news. The money is recaps, maps, and the wait, not Rockstar’s build, not their logos.",
+    publishedAt: "2026-08-22T17:39:00.000Z",
+    readMinutes: 4,
+    featured: true,
+    marketTick: "TTWO +2.8%",
+    news: {
+      headline:
+        "GTA 6 footage and map talk spilled again. The timeline is treating it like a launch. It isn’t yours to ship.",
+      body: [
+        "A Grand Theft Auto VI leak is not a product drop. It is a crowd that suddenly wants to know what they saw, what is real, and what to do with the next 200 hours of waiting. That crowd will pay attention. Some of it will pay cash. Almost none of it should touch the files.",
+        "Rockstar and Take-Two own the game, the names, the characters, the map art, the audio. Hosting a build, selling clips of the leak, or printing a Vice City skyline with their marks is how you get the account killed and a letter. The leak is the situation. It is not inventory.",
+        "What actually moves: people who will watch a 40-second “what leaked / what it means” recap filmed from public posts, not from a torrent. People who want a Miami analog walk, streets that feel like the trailer, without you claiming you are Rockstar. People still playing GTA 5 who will watch “waiting room” clips until the real thing ships.",
+        "The comments are the brief. They are not asking you for a download. They are asking what they just saw, whether it’s fake, and what to do until the store page is real. Answer that. Charge for the desk around it. Leave the files on the floor.",
+      ],
+    },
+    play: {
+      headline: "Own the recap. Charge the wait. Never ship the leak.",
+      teaser: "Explain what leaked. Map the analog. Clip the wait. Do not touch Rockstar’s files.",
+    },
+    playbook: {
+      thesis:
+        "The leak created a news hole and a waiting room. You sell explanation and the wait: recap shorts, a Miami analog walk, GTA 5 “until VI” clips. You do not host, sell, or watermark leaked footage. You do not print their logo.",
+      capital: "$0–$120",
+      speed: "Tonight to first recap. 7 days to know if the desk holds.",
+      risk: "medium",
+      briefing: [
+        "Illegal / kill-the-desk: uploading the leak, selling the build, ripping leaked cutscenes into a “documentary,” merch with GTA / Rockstar / character marks, fake “official” pages. That is not a hustle. That is a takedown.",
+        "Legal lane: commentary on what the public already saw, your face, your maps of real Miami streets that resemble the vibe, original analog merch with no trademarks, a newsletter that links to news, not to files.",
+        "Pick one desk for 7 days. Recap, analog walk, or waiting-room GTA 5 clips. Three desks is how you post nothing.",
+        "Monetize after the first 10 posts that hold: YouTube mid-rolls later, Super Thanks, a $5 recap note, a walking-tour pin. Not a Google Drive in the bio.",
+      ],
+      sequence: [
+        {
+          title: "Write the recap from public posts. Do not download the leak.",
+          window: "Hour 1",
+          body: "Open news posts, official trailer stills you already had, and screenshots people posted in public. Write 8 bullets: what people claim leaked, what is confirmed vs rumor, what you will not show. If you need the files to make the video, you do not have a video. You have a strike.",
+        },
+        {
+          title: "Pick one lane. Kill the other two for a week.",
+          window: "Hour 1",
+          body: "Lane A: 40-second recap, your voice, B-roll of your hands / a map / a TV menu. No leaked gameplay. Lane B: Miami (or your nearest analog) walking clips titled as a vibe, not “official Vice City.” Lane C: GTA 5 waiting-room clips (“what I’m doing until VI”) from a game you own. Circle one. The other two wait.",
+        },
+        {
+          title: "Film three tonight. Same hook, three angles.",
+          window: "Night 1",
+          body: "Vertical. Hook in the first second: “Here’s what the leak actually showed, and what it didn’t.” End on a question. No download talk. No “link in bio for the files.” Post one now, two in the next 12 hours. This is the last free move. After this, the desk is the sequence.",
+        },
+        {
+          title: "Stand up a recap channel that looks like a desk, not a leak page.",
+          window: "Day 2",
+          body: "Handle is a recap name, not “GTA6leaksfiles.” Bio: “Recaps and the wait. No files. No fake store.” Banner is original color, not their key art. Linktree: YouTube + a note, not Mega. If a platform asks, you comment on news. You do not redistribute.",
+        },
+        {
+          title: "The 40-second format is the product.",
+          window: "Days 2–5",
+          body: "Open on the claim. Cut to you. Three facts. One “this is rumor.” One “this is from the trailer we already had.” CTA is “follow for the wait,” not “watch the leak.” Batch 5. Post daily. Delete any clip that includes leaked gameplay even in a tiny corner.",
+        },
+        {
+          title: "If you picked analog walk: one route, ten pins.",
+          window: "Days 2–6",
+          body: "Walk a real waterfront / neon strip / causeway. Title: “Miami at night: analog, not a map pack.” Do not overlay their UI. Do not call streets by in-game names you copied from a leak. Sell a $9 pin of YOUR route on a one-pager if people ask for the path. Original photos only.",
+        },
+        {
+          title: "If you picked waiting room: own a GTA 5 save, clip the ritual.",
+          window: "Days 2–6",
+          body: "You already own the older game. Clip a nightly ritual: same car, same radio, same dumb job. Caption is the wait. That is fair use of a game you paid for, talking about the next one. Still no leak footage. Same time every night for 7 days.",
+        },
+        {
+          title: "Money after 10 posts, not before.",
+          window: "Days 7–14",
+          body: "YouTube: turn on ads when they let you. Super Thanks on recaps. A $5 “week in the wait” note on Gumroad: text, your screenshots of public headlines, no files. Analog merch: original neon type, no logos, no character faces. If someone DMs for the leak, block. That DM is the test you fail by answering.",
+        },
+      ],
+      numbers: [
+        { label: "First videos", value: "3 tonight", note: "Same hook. No leaked gameplay in the frame." },
+        { label: "Posting", value: "1/day for 7 days", note: "If you cannot hold a week, you do not have a desk." },
+        { label: "Note", value: "$5", note: "Text recap of the week. No files. No “exclusive leak.”" },
+        { label: "Ad spend", value: "$0", note: "The leak is the traffic. Paid ads on trademark terms will eat you." },
+      ],
+      kit: [
+        "Phone, mic, a light you already own",
+        "A game you legally own if you clip GTA 5",
+        "Notes app with rumor vs confirmed",
+        "YouTube + TikTok/Shorts, already logged in",
+        "One-pager or Gumroad for the $5 note later",
+        "A written rule: no files, no logos, no fake store",
+      ],
+      scripts: [
+        {
+          where: "Recap open",
+          text: "Here’s what the GTA 6 leak actually showed, what’s still rumor, and what I’m not posting. No files. Forty seconds.",
+        },
+        {
+          where: "Bio",
+          text: "Recaps and the wait. I don’t host builds. I don’t sell leaks. I cover what people already saw.",
+        },
+        {
+          where: "DM when they ask for the download",
+          text: "I don’t send files. Recaps are on the channel. If you want the game, wait for the store.",
+        },
+      ],
+      pitfalls: [
+        "Uploading leaked gameplay “for commentary” with the whole scene still in the frame.",
+        "A Mega / Discord file drop in the bio or Stories.",
+        "Merch with GTA, Rockstar, or character likeness.",
+        "Calling a Miami walk “the official map.”",
+        "Fake countdown to a store you don’t run.",
+        "Answering the download DM “just this once.”",
+      ],
+      week: [
+        { day: "Tonight", move: "8 bullets. Three recaps. Post one." },
+        { day: "Tue", move: "Channel looks like a desk. Post two." },
+        { day: "Wed–Thu", move: "Daily recap or analog/waiting-room clip. Same hour." },
+        { day: "Fri", move: "Kill any clip that snuck leaked footage." },
+        { day: "Sat", move: "If 10 posts exist, draft the $5 note. Still no files." },
+        { day: "Sun", move: "Decide: recap desk lives, or you were just loud for 48 hours." },
+      ],
+      kill: [
+        "You needed the leak files to make the video. Stop. You don’t have a recap desk.",
+        "A strike or a lawyer letter. Take the videos down, do not “re-upload muted.”",
+        "People only show up to ask for downloads. You built a leak counter, not a company. Close it.",
+      ],
+      suggestedGoals: [
+        "Write rumor vs confirmed on one page. No files on the machine",
+        "Post three recaps with zero leaked gameplay",
+        "Hold one lane for 7 daily posts",
+        "Block the first download DM instead of answering it",
+        "Ship a $5 text recap only after 10 clean posts",
+      ],
+      questions: [
+        "Can I show leaked gameplay if I add commentary?",
+        "What do I film tonight if I refuse to download the leak?",
+        "How do I make money without merch that says GTA?",
+        "What do I say when someone asks for the files?",
+      ],
+    },
+  },
+  {
+    slug: "ap-swatch-royal-pop",
+    code: "AP×S",
+    accent: "#123a8a",
+    ink: "#e8f0ff",
+    category: "products",
+    kicker: "The collab",
+    title: "AP x Swatch shipped a $400 Royal Oak on a necklace. Sell the wrist clip.",
+    dek: "Royal Pop is an octagon on a lanyard. People wanted it on a wrist. The hustle is the extension, or bolt it to an 8-ball.",
+    publishedAt: "2026-08-21T09:10:00.000Z",
+    readMinutes: 4,
+    marketTick: "UHR.SW −0.9%",
+    news: {
+      headline:
+        "Audemars Piguet x Swatch Royal Pop is not a wristwatch. It is a pocket watch on a cord.",
+      body: [
+        "AP x Swatch dropped Royal Pop and the internet did what it always does with a collab: it waited for a Royal Oak you could strap on. What shipped is a bioceramic octagon: eight screws, tapisserie dial, the whole AP silhouette, hanging from a calfskin lanyard.",
+        "Four hundred dollars. Crown at 12 or at 3. Wear it as a necklace, clip it to a bag, stand it on a desk. Swatch will tell you there are “no limits.” The photos still look like jewelry that happens to tell time.",
+        "The comments are the brief. People are not saying they hate the object. They are saying they would buy it if it lived on a wrist like a watch. Some of them are already joking they would glue the head to an 8-ball just so it exists in a room instead of a campaign film.",
+        "Swatch sells extra lanyard lengths. They will not sell you a proper strap adapter. Collabs are closed. Aftermarket is where the money sits when two houses ship a vibe instead of a wrist.",
+      ],
+    },
+    play: {
+      headline: "Start the company that makes the extension.",
+      teaser: "The collab left a hole: a clip that puts Royal Pop on a wrist. That’s the business.",
+    },
+    playbook: {
+      thesis:
+        "Royal Pop created demand for a part AP and Swatch will not tool. Wrist mount for people who wanted a watch. 8-ball socket for the meme. Two SKUs, one core geometry.",
+      capital: "$180–$650 to first listing",
+      speed: "7–12 days to first sale if you already have a printer",
+      risk: "medium",
+      briefing: [
+        "The product is a 40mm-class bioceramic octagon with a clip on the case back and a calfskin lanyard. People searched “AP x Swatch” expecting a strap. They got a pendant. That mismatch is the brief.",
+        "Do not sell a fake Royal Oak. Do not print AP or Swatch logos. You sell a third-party adapter: “fits Royal Pop case back.” Compatibility, not counterfeit.",
+        "Two buyers exist. Buyer A paid $400 and is angry it is not a watch. Buyer B wants the joke object, the head on an 8-ball, for a desk or a Reel. SKU A prints money if it holds. SKU B prints attention.",
+        "Speed beats polish for 14 days after the roast peaks. After that you either have a molded run or you are late.",
+      ],
+      sequence: [
+        {
+          title: "Buy one body. Do not guess the clip.",
+          window: "Day 0",
+          body: "Purchase one Lépine or Savonnette. Match the crown position you will support first. Photograph the case back, clip width, depth, and how the lanyard detaches, with a ruler in frame. Calipers if you have them. This photo set is the CAD brief. Do not design from a Google Shopping card.",
+        },
+        {
+          title: "Pick a core: lug plate, not a full watch.",
+          window: "Day 1",
+          body: "You are not remaking a Royal Oak. You are making a plate that locks to the existing clip / case-back geometry and presents 20mm or 22mm spring-bar lugs (measure once, pick one, stick to it). The 8-ball mount is the same plate with a 2-inch threaded socket instead of lugs. One body, two end-caps.",
+        },
+        {
+          title: "Print three prototypes. Kill two.",
+          window: "Days 2–4",
+          body: "PETG or nylon, 0.16mm layers. Test: clip on, shake over a sofa, wear 4 hours. If it scars the bioceramic, add a TPU pad. If it rotates, add a key. If it looks toy-cheap, chamfer and bead-blast the next print. Ship nothing that rattles.",
+        },
+        {
+          title: "Photograph like a product house, not a hobby printer.",
+          window: "Day 5",
+          body: "Black paper, one key light, wrist shot, 8-ball shot, exploded shot of the clip. No AP logo in frame. No Swatch store selfie. Title the files SKU-wrist and SKU-eight. These images are 80% of conversion.",
+        },
+        {
+          title: "List both SKUs the same hour.",
+          window: "Day 5–6",
+          body: "Etsy + TikTok Shop. Wrist SKU priced $34–$48. 8-ball SKU $28–$38 with a $12 upsell for a real 2-inch ball (or “mount only”). Processing time 3–5 days. First 20 units are prints. Say that in the listing so you are not lying.",
+        },
+        {
+          title: "Hunt the roast, don’t lecture it.",
+          window: "Days 6–10",
+          body: "Reply to “it’s a necklace” posts with the wrist photo and a link. No essays. One line: “If you already bought it, this puts it on a wrist.” Pin the 8-ball clip on TikTok. The joke listing is the ad for the serious one.",
+        },
+        {
+          title: "If 25 units move, tool a short mold.",
+          window: "Days 12–21",
+          body: "Get quotes from a local or nearshore shop for 200–500 units in a blue that sits next to the common bezels. Do not order 5,000. Do not wait for a brand deal. You are the accessory house.",
+        },
+        {
+          title: "Protect the desk.",
+          window: "Always",
+          body: "No “AP,” no “Audemars,” no oak-tree marks. “Fits Royal Pop pocket-watch case.” If a platform flags you, appeal with compatibility language. If a lawyer letter arrives, stop using any collab stills you do not own.",
+        },
+      ],
+      numbers: [
+        { label: "Wrist SKU", value: "$34–$48", note: "Print cost ~$4–$9. Target 70%+ gross on printed run." },
+        { label: "8-ball SKU", value: "$28–$38", note: "Mount-only cheaper. Bundle the ball if shipping still clears $12." },
+        { label: "First batch", value: "20 prints", note: "Do not mold before 25 paid orders or you are guessing." },
+        { label: "Ad spend cap", value: "$50", note: "Organic roast traffic first. Paid only after 5 organic sales." },
+      ],
+      kit: [
+        "One genuine Royal Pop (your jig)",
+        "Calipers + ruler-in-frame photos",
+        "FDM printer (PETG/nylon) or a print service with 48h turn",
+        "Spring bars 20 or 22mm + a cheap aftermarket strap for the hero shot",
+        "2-inch billiard ball or a ½-inch thread adapter",
+        "TPU filament for the contact pad",
+        "Etsy + TikTok Shop accounts, already verified",
+      ],
+      scripts: [
+        {
+          where: "TikTok comment under a roast",
+          text: "If you already copped the Pop, this clip puts the head on a wrist. Mount only. Not a fake AP.",
+        },
+        {
+          where: "Etsy title",
+          text: "Wrist adapter for Royal Pop pocket watch, spring-bar lug plate (mount only)",
+        },
+        {
+          where: "8-ball listing first line",
+          text: "Desk mount for Royal Pop heads. Screw the case onto a 2-inch ball. Joke SKU, real hardware.",
+        },
+      ],
+      pitfalls: [
+        "Using AP/Swatch trademarks or official packshots in ads.",
+        "Selling a “Royal Oak strap.” You are not them.",
+        "Shipping a sloppy print that scars a $400 case. That review kills the desk.",
+        "One SKU only. The 8-ball is marketing. The wrist clip is the company.",
+        "Waiting for permission. Collabs do not bless aftermarket.",
+      ],
+      week: [
+        { day: "Sat", move: "Buy the watch. Photograph the back." },
+        { day: "Sun", move: "CAD v1. Print overnight." },
+        { day: "Mon", move: "Fit test. Pad. Reprint." },
+        { day: "Tue", move: "Hero photos. Write both listings." },
+        { day: "Wed", move: "Go live. Seed 10 roast comments." },
+        { day: "Thu", move: "Ship first orders same day if you can." },
+        { day: "Fri", move: "Read returns. Kill the SKU that rattles. Double the one that does not." },
+      ],
+      kill: [
+        "Zero sales in 14 days after 40 honest comments. Demand was a tweet, not a wallet.",
+        "A platform IP strike you cannot rephrase around. Stop that channel, keep the other.",
+        "Return rate over 20%. Geometry is wrong. Do not mold a bad clip.",
+      ],
+      suggestedGoals: [
+        "Buy one Royal Pop and photograph the case back with a ruler",
+        "Print a wrist-clip prototype that survives a 4-hour wear test",
+        "List wrist SKU and 8-ball SKU the same day",
+        "Get the first 5 paid orders",
+        "Decide mold vs kill after 25 units",
+      ],
+      questions: [
+        "What do I buy first this weekend?",
+        "Wrist clip or 8-ball SKU. Which one first?",
+        "How do I list this without an AP/Swatch IP strike?",
+        "What should I charge, and when do I mold?",
+      ],
+    },
+  },
+  {
+    slug: "nfc-google-review-cards",
+    code: "NFC",
+    accent: "#0b6e4f",
+    ink: "#e8fff4",
+    category: "street",
+    kicker: "Local desk",
+    title: "Shops still beg for Google reviews. Sell them a $2 NFC tap card.",
+    dek: "Alibaba will ship you a programmed-ready NFC card for about two dollars. You sell the tap that opens the review box, not fake stars.",
+    publishedAt: "2026-08-22T11:00:00.000Z",
+    readMinutes: 4,
+    marketTick: "GOOGL +0.4%",
+    news: {
+      headline:
+        "Local businesses still live and die on Google reviews. Most of them have a paper tent that nobody scans.",
+      body: [
+        "A salon with 11 reviews loses to the salon with 90, even when the chairs are better. Owners know this. They still ask at the register, they still tape a QR to the counter, and the phone still never opens the right screen.",
+        "NFC closed that gap. You tap a card, the review form opens, you type two lines, you leave. No app hunt. No “what’s our Google name.” The hardware is a chip in a piece of PVC.",
+        "Those cards are not scarce. On Alibaba, a printed NTAG card lands around two dollars once you buy a small stack. The gap is not supply. It is the person who will walk into a shop, tap the owner’s phone, and sell the object while it works.",
+        "Google does not sell this kit. Agencies want a monthly retainer to “manage reputation.” The street version is a card, a stand, and a link that only writes a real review.",
+      ],
+    },
+    play: {
+      headline: "Buy the cards at $2. Sell the tap at $79.",
+      teaser: "Alibaba NFC cards, programmed to their Google review URL, sold in person with a live demo.",
+    },
+    playbook: {
+      thesis:
+        "The product is friction removal, not stars. A $2 NFC card that opens the shop’s Google review form. Sell a 2-pack plus a stand to places with under 40 reviews. Never write the review for them.",
+      capital: "$90–$240 to first 50 cards on the table",
+      speed: "Amazon chips this week to learn. Alibaba stack in 12–18 days. First sale the day the box lands.",
+      risk: "low",
+      briefing: [
+        "Owners already want reviews. They fail at the last inch: the customer has to find the listing. A tap is that inch. You are not a reputation agency. You are a hardware desk.",
+        "Buy NTAG213 or NTAG215 PVC cards on Alibaba. Printable, chip already in the card. Budget about $2 landed per decent card, not the 20-cent bare inlay. Cheap white cards look like spam. Thick PVC with their logo looks like a product.",
+        "Program the card with the write-a-review URL (place ID), not the maps listing. If it opens Google Maps and stops, you lost the sale. Test on Android and iPhone before you walk in.",
+        "Do not pay for reviews. Do not promise five stars. Do not put a Google G that you do not have rights to. “Tap to leave us a review” plus their name is enough.",
+      ],
+      sequence: [
+        {
+          title: "Order two piles. Learn on the fast one.",
+          window: "Day 0",
+          body: "Amazon or a US seller: 10 blank NTAG213 cards this week so you can practice writes. Alibaba: 50–100 printed PVC cards, NTAG213/215, 0.76–0.84mm, matte. Ask for a digital proof. Do not wait for custom print on the first test. White cards + a sticker or a cheap sleeve still demo. Custom print is batch two, after 8 shops say yes.",
+        },
+        {
+          title: "Build a 20-shop hit list.",
+          window: "Day 1",
+          body: "Walk or map: cafes, barbers, nail, dental, auto shops, gyms with under 40 Google reviews and a counter. Screenshot the listing. Copy the name exactly. Skip chains. Skip anyone already running a NFC stand from a big vendor.",
+        },
+        {
+          title: "Get the write-review link, not the Maps pin.",
+          window: "Day 1",
+          body: "Google the shop → Maps → Share is not enough. You need the place ID write-review URL (search “Google write review link” + their listing, or use a place-ID lookup). Save each URL in a note titled with the shop. If you program the wrong link, the owner will feel it in two seconds.",
+        },
+        {
+          title: "Write one demo card. Film the tap.",
+          window: "Day 2",
+          body: "NFC Tools (or equivalent): add a URL record, write, lock later not now. Tap an Android. Tap an iPhone. The review composer should open. Film that from over the shoulder. No faces required. That clip is the whole pitch.",
+        },
+        {
+          title: "Make the object look like a product.",
+          window: "Days 2–3",
+          body: "Small acrylic stand or a wood block with a slot. One line on the card: “Tap with your phone. Leave a review.” Their shop name if you already print. A second card for the window. Price card in your pocket, not on the table: 2 cards + stand = $79. Extra card $29. You can drop to $59 if they hesitate. Do not start at $29.",
+        },
+        {
+          title: "Walk in between 2 and 4, not lunch.",
+          window: "Days 4–10",
+          body: "Ask for the owner or manager. One sentence: you sell a tap card that opens their Google review box. Then you tap their phone. If it works, shut up. If they ask price, give the $79 pack. Program their URL on the spot from your laptop/phone. Leave two cards and the stand. Take cash, tap, or a same-day invoice.",
+        },
+        {
+          title: "Do not become their review intern.",
+          window: "Always",
+          body: "If they ask you to “get us to 5.0,” you leave. If they want a QR as well, add it on the back of the same card for free. It is the same URL. If they want 20 locations, that’s a PO, not a discount to $5.",
+        },
+        {
+          title: "When 10 shops are live, print their names.",
+          window: "Days 12–21",
+          body: "Alibaba custom: shop logo, one color, 20-card minimum per design only if they prepay. Until then, generic cards + a label. Reorder when you have 15 blanks left, not when you have zero.",
+        },
+      ],
+      numbers: [
+        { label: "Alibaba card", value: "~$2", note: "Landed PVC NTAG, small lot. Bare chips are cheaper and look worse." },
+        { label: "2-pack + stand", value: "$79", note: "Stand ~$4–$8. Target $50+ gross per shop visit that closes." },
+        { label: "Extra card", value: "$29", note: "Window, second register, staff badge. Easy add-on." },
+        { label: "First PO", value: "50–100 cards", note: "Do not order 1,000 until 10 shops have paid." },
+        { label: "Ad spend", value: "$0", note: "This is a walking desk. Boosts come after 5 photo testimonials." },
+      ],
+      kit: [
+        "10 blank NTAG213 cards for practice (local, this week)",
+        "Alibaba order: 50–100 PVC NFC cards (~$2 landed)",
+        "Phone with an NFC write app (NFC Tools or similar)",
+        "Note with each shop’s write-review URL",
+        "10 cheap stands or slotted wood blocks",
+        "Tap reader or cash for the close",
+        "A demo card already written to a real listing you control or a friend’s shop",
+      ],
+      scripts: [
+        {
+          where: "In the door, to the owner",
+          text: "I sell a card you leave at the register. Customer taps it. Google’s review box opens. I’ll do it on your phone right now.",
+        },
+        {
+          where: "After the tap works",
+          text: "Two cards and the stand is $79. I program your listing before I leave. You’re not paying for stars. You’re paying so people can actually find the form.",
+        },
+        {
+          where: "If they want fake reviews",
+          text: "I don’t write reviews. If the tap isn’t enough, I’m the wrong desk.",
+        },
+      ],
+      pitfalls: [
+        "Programming the Maps listing instead of the write-review URL.",
+        "Putting a fake Google logo on the card.",
+        "Selling “we’ll get you 50 five-stars.” That’s ToS and a way to get the shop banned.",
+        "Ordering 1,000 custom cards before one owner has paid.",
+        "Pitching at lunch rush. They will say no just to make you leave.",
+      ],
+      week: [
+        { day: "Sat", move: "Order practice chips. Build the 20-shop list." },
+        { day: "Sun", move: "Pull write-review URLs. Write and film one demo card." },
+        { day: "Mon", move: "Place the Alibaba PO for 50–100 PVC cards." },
+        { day: "Tue–Thu", move: "Walk 8 shops with the Amazon/practice cards. Take deposits if they want custom print." },
+        { day: "When the box lands", move: "Program and deliver. Collect the rest of the $79." },
+        { day: "Fri", move: "Reorder stands. Hit the next 8 shops." },
+      ],
+      kill: [
+        "Ten shops tap the demo and nobody pays $59+. Your object looks cheap or your list is chains. Change the card, not the price to $15.",
+        "iPhone tap fails on your “working” card. Fix encoding before another door.",
+        "A shop asks you to post reviews from fake accounts. Walk. That desk will burn you.",
+      ],
+      suggestedGoals: [
+        "Order practice NFC cards and one Alibaba lot at ~$2 landed",
+        "Build a 20-shop list with write-review URLs",
+        "Film one working tap on Android and iPhone",
+        "Close the first shop at $59 or more",
+        "Deliver 5 programmed 2-packs",
+      ],
+      questions: [
+        "What do I actually buy on Alibaba?",
+        "How do I program the card so the review box opens?",
+        "What do I say when I walk into a shop?",
+        "What should I charge, and what is illegal?",
+      ],
+    },
+  },
+  {
+    slug: "instagram-paid-8ball",
+    code: "8BALL",
+    accent: "#111111",
+    ink: "#f4efe4",
+    category: "platforms",
+    kicker: "Platform kill",
+    title: "Paid and 8ball are gone. LARP accounts take the app now.",
+    dek: "Those weren’t brands. They were LARP desks with handles people paid to watch. The slot is empty. Become the biggest LARP account on Instagram.",
+    publishedAt: "2026-08-21T14:40:00.000Z",
+    readMinutes: 4,
+    marketTick: "META −1.2%",
+    news: {
+      headline:
+        "The paid Instagram accounts named Paid and 8ball are dead. That was the LARP feed.",
+      body: [
+        "On Instagram, Paid and 8ball were not shops. They were not “creators.” They were paid accounts, the ones people treated like a show. LARP. A whole life that may or may not have been real, posted like it was, every day.",
+        "Those handles are gone. The comments, the lore, the people who talked to the character instead of the operator. All of that is sitting on an empty chair.",
+        "Most of the timeline will post a screenshot and move on. That is the tell. When a LARP desk dies, the audience does not disappear. It looks for the next account that can hold the bit without breaking.",
+        "Instagram still pays attention to worlds. It just stopped paying those two to run them.",
+      ],
+    },
+    play: {
+      headline: "Take over. Become the biggest LARP account.",
+      teaser: "Paid and 8ball left a hole. The play is a new LARP desk, not their names.",
+    },
+    playbook: {
+      thesis:
+        "Those two trained the audience. You do not buy the handles and you do not impersonate them. You take the genre, committed LARP, and occupy it until people mean your name when they say “the LARP account.”",
+      capital: "$0–$180",
+      speed: "Tonight to first scene. 21 days to know if the bit holds.",
+      risk: "low",
+      briefing: [
+        "Paid and 8ball worked because the comments talked to a character, not a creator. That is the whole product: a life that stays on when the camera is away.",
+        "The vacuum is the genre, not the trademarks of those handles. Cloning their face, claiming you “are” them, or buying lookalike names is how you get banned and how you look small.",
+        "You need a closed world: job, rooms, a problem that never fully resolves, a few recurring extras. Boring days still get posted. That is what made those desks feel real.",
+        "Monetize late. First you become the show. Then the show sells merch, a live, a character collab, not a link-in-bio on day two.",
+      ],
+      sequence: [
+        {
+          title: "Write the bible on one page.",
+          window: "Hour 1",
+          body: "Name (not Paid, not 8ball). Job. Where they sleep. What they want this month. What they will never explain. Three locations you can actually film. If you cannot shoot it this week, it is not in the bible.",
+        },
+        {
+          title: "Lock rules you will not break on camera.",
+          window: "Hour 1",
+          body: "No “hey guys.” No behind-the-scenes. No “this is a bit.” If you break character in comments, the desk is dead. Write that on a sticky and put it on the lens.",
+        },
+        {
+          title: "Film 7 scenes before you post the first.",
+          window: "Night 1–2",
+          body: "Vertical, hard light or phone torch, 8–20 seconds. Start already in the scene. End on a look or a door, not a caption. Batch so you can post daily when you are tired.",
+        },
+        {
+          title: "Open the account like a show bible, not a brand kit.",
+          window: "Day 1",
+          body: "Handle is a name, not a niche keyword. Bio is in-world (a place, a shift, a number). Grid is the same palette. No link yet. Profile photo is the character, not a logo.",
+        },
+        {
+          title: "Post at the same hour for 14 days.",
+          window: "Days 1–14",
+          body: "Same local time. Stories can be crumbs (a receipt, a hallway, a voice note in character). Reels are the episode. If a post flops, do not explain. Post the next scene.",
+        },
+        {
+          title: "Talk only to the people who talk to the character.",
+          window: "Ongoing",
+          body: "Reply in-world. Ignore “is this fake.” Pin comments that add lore. If someone asks to collab as themselves, no. If they enter as a character, maybe.",
+        },
+        {
+          title: "Week 3: test if you are a desk.",
+          window: "Days 15–21",
+          body: "You are winning when strangers use the character’s name in the third person. Then, and only then, drop one in-world object (a cheap print, a number, a live). If they still say “nice content bro,” you are not there. Keep filming.",
+        },
+        {
+          title: "Scale the world, not the face.",
+          window: "Days 22+",
+          body: "Add one recurring extra. One location upgrade. One weekly ritual (Friday deposit, Sunday inventory, night shift). Do not hop trends that break the bible. Biggest LARP account is the one that does not blink.",
+        },
+      ],
+      numbers: [
+        { label: "Cadence", value: "1 Reel / day", note: "14 days before you judge reach. Stories extra, not instead." },
+        { label: "Length", value: "8–20 sec", note: "First frame is the scene. No intro hook-talk." },
+        { label: "Batch", value: "7 in the can", note: "Protects you on the day you do not want to be the character." },
+        { label: "Monetize", value: "After name-recognition", note: "If comments still say “you,” it is too early to sell." },
+      ],
+      kit: [
+        "One phone, one cheap light or a window you can repeat",
+        "Two outfits that belong to the job, not to you",
+        "A notes doc: bible + scene list + lines you will never say",
+        "A second account for your real name. Keep it off this grid",
+        "Tripod or stack of books, same height every time",
+      ],
+      scripts: [
+        {
+          where: "First caption. Stay in-world",
+          text: "Night two. Drawer still jammed. If you are coming, come after 1.",
+        },
+        {
+          where: "Comment reply to “is this real”",
+          text: "Drawer’s still jammed. You coming after 1 or not.",
+        },
+        {
+          where: "Week 3 in-world merch",
+          text: "Shift cards came in. One per person. I am not mailing if you ask as yourself.",
+        },
+      ],
+      pitfalls: [
+        "Claiming you are Paid or 8ball. That is impersonation, not LARP.",
+        "Buying a lookalike handle and acting like the heir.",
+        "Breaking character to sell a course on day four.",
+        "Trend audio that belongs to a different world.",
+        "Explaining the bit in a story. If you have to explain it, you lost.",
+      ],
+      week: [
+        { day: "Day 1", move: "Bible. 7 scenes. Account. Post 1." },
+        { day: "Day 2–7", move: "Daily episode + 3 in-world story crumbs." },
+        { day: "Day 8", move: "Review: which scene got lore comments? Double that setting." },
+        { day: "Day 9–14", move: "Introduce one extra. Keep the hour sacred." },
+        { day: "Day 15", move: "If they say the name, plan the first object. If not, film another 7." },
+        { day: "Day 16–21", move: "Hold the bit. Do not rebrand." },
+      ],
+      kill: [
+        "You cannot film 7 scenes without breaking your own bible. Pick a smaller world.",
+        "You keep answering as yourself. Stop the account. It will never be a desk.",
+        "A ban for impersonation. You drifted into their identity. Restart as a new character, legally yours.",
+      ],
+      suggestedGoals: [
+        "Write a one-page character bible (not Paid, not 8ball)",
+        "Batch-film 7 in-world scenes before posting",
+        "Post daily at the same hour for 14 days",
+        "Get comments that use the character’s name",
+        "Hold 21 days before selling anything",
+      ],
+      questions: [
+        "How do I take the lane without impersonating Paid or 8ball?",
+        "What does a one-page character bible actually include?",
+        "When am I allowed to sell something?",
+        "What should I post if a Reel flops?",
+      ],
+    },
+  },
+  {
+    slug: "nvda-earnings-spare-gpu",
+    code: "NVDA",
+    accent: "#76b900",
+    ink: "#10140c",
+    category: "markets",
+    kicker: "Tape",
+    title: "Nvidia wobbled on earnings. The play is the spare-GPU wave, not the ticker.",
+    dek: "Traders argue about guidance. Hustlers list the cards people panic-sell at 1 a.m.",
+    publishedAt: "2026-08-20T22:05:00.000Z",
+    readMinutes: 4,
+    marketTick: "NVDA −3.4%",
+    news: {
+      headline:
+        "Nvidia printed a beat and still got punished. Guidance was “fine.” Fine is a dump in this tape.",
+      body: [
+        "After hours, NVDA did the thing growth names do when the story is already priced for perfection: it beat, then fell. The call was cautious. The chart did not like cautious.",
+        "Retail will spend two days arguing whether this is a buy. Data-center buyers will spend two days pretending they are not refreshing eBay.",
+        "Every time this name sneezes, a wave of used cards, unfinished builds, and “need cash tonight” listings hits the secondhand market. That wave is more tradable for a small desk than the options chain.",
+        "You do not need a thesis on AI. You need a spreadsheet of model numbers and a pickup route.",
+      ],
+    },
+    play: {
+      headline: "Run a 72-hour GPU desk off the dump.",
+      teaser: "The stock dump shakes loose used cards. That’s a 72-hour desk, not a trade.",
+    },
+    playbook: {
+      thesis:
+        "You are not picking NVDA. You are picking mispriced hardware from people who need cash tonight. 72 hours. Spreadsheet, cash, pickup, test, relist.",
+      capital: "$600–$2,500 working capital",
+      speed: "72 hours after the print",
+      risk: "medium",
+      briefing: [
+        "After a growth-name dump, Marketplace, OfferUp, Discord “need out” channels, and local classifieds fill with GPUs, unfinished PCs, and mining leftovers. Prices lag eBay sold comps by 12–36 hours. That lag is the desk.",
+        "You only buy what you can test on a bench the same night. No mail from a stranger three states away in the first 72 hours. Local, cash or instant transfer, meet in a lit lot.",
+        "Honesty is the brand. Hours, burns, noisy fans. Write it. The next buyer is a builder who will RMA your reputation, not Nvidia.",
+        "If you do not want inventory, run a finder’s desk: match a known builder to a listing for 8–12%. Still a desk. Less cash at risk.",
+      ],
+      sequence: [
+        {
+          title: "Build the buy sheet before you leave the house.",
+          window: "Hour 0",
+          body: "Columns: model, VRAM, max bid, walk-away, red flags. Start with 4070/4070 Ti/4080/4090 and last-gen 30-series that still sell. Pull last 7 days of eBay sold + local sold. Max bid is 65–75% of cleaned, tested sold, not asking.",
+        },
+        {
+          title: "Alert stack.",
+          window: "Hour 0",
+          body: "Saved searches on Marketplace for those model strings, 25-mile radius, posted today. Discord servers you already belong to. Do not cold-join and spam. Phone on loud. The desk is speed, not grindset.",
+        },
+        {
+          title: "The message is boring and fast.",
+          window: "Hours 1–48",
+          body: "“Can pick up tonight with cash. Can you boot to a screenshot of GPU-Z?” If they cannot show the card running, you are buying a brick. If the price is a miracle, it is stolen or dead. Walk.",
+        },
+        {
+          title: "Meet like you have done this.",
+          window: "Same day",
+          body: "Daylight or store lot. They demo the card if possible. Serial photo. Count cash twice. No “I’ll Venmo after I test at home” unless you already trust them. You test at home anyway.",
+        },
+        {
+          title: "Bench: 20 minutes, not a vibe.",
+          window: "Night of",
+          body: "Reseat. GPU-Z. 15-minute 3D load. Temps, fan curve, artifacts. Paste if it is a furnace and you know how. Photograph the bench with a handwritten date. That photo is the listing.",
+        },
+        {
+          title: "Relist as tested, not “rare.”",
+          window: "Next morning",
+          body: "eBay + local. Title is model + VRAM + tested. Price between your cost and 90% of sold comps. Offer local pickup cheaper. Do not lie about mining. If you do not know, say “unknown hours, tested 15 min, no artifacts.”",
+        },
+        {
+          title: "Finder path if cash is tight.",
+          window: "Parallel",
+          body: "Text two builders: “I have a line on X at $Y, I want $Z to connect.” Do not ghost the seller. Do not take deposits on cards you do not control.",
+        },
+        {
+          title: "Close the window.",
+          window: "Hour 72",
+          body: "After three days the comps catch up and you are just a used-GPU shop with leftover inventory. Sell down. Do not marry a 4090 because you have a thesis. The thesis was the dump.",
+        },
+      ],
+      numbers: [
+        { label: "Max bid", value: "65–75% of sold", note: "Use sold comps, not listings. Leave room for a dead fan." },
+        { label: "Hold", value: "72 hours", note: "After that you are inventory, not a dump desk." },
+        { label: "Finder cut", value: "8–12%", note: "If you never touch the card. Get both sides to agree in writing." },
+        { label: "Fail budget", value: "1 brick in 10", note: "If you cannot afford a dead card, you are oversized." },
+      ],
+      kit: [
+        "A test PC that actually POSTs",
+        "GPU-Z + a 15-min load tool",
+        "Thermal paste, screwdriver, anti-static bag",
+        "Cash in the denominations people expect",
+        "Spreadsheet on your phone",
+        "eBay seller account in good standing, or local only",
+      ],
+      scripts: [
+        {
+          where: "First DM",
+          text: "Tonight cash. Can you boot and screenshot GPU-Z with the model showing? I’ll come to you.",
+        },
+        {
+          where: "Relist title",
+          text: "RTX 4070 Ti 12GB, tested 15 min, no artifacts, local pickup tonight",
+        },
+        {
+          where: "Finder text to a builder",
+          text: "4070 Ti, seller asking $X, I can get it to $Y if you want it. I take $Z. Card stays with them until you pay.",
+        },
+      ],
+      pitfalls: [
+        "Buying mail-order “brand new in box” at a miracle price in the first 48 hours.",
+        "Paying sticker because you “believe in NVDA.” This is not that trade.",
+        "Skipping the load test. Artifacts show up hot.",
+        "Listing with stolen photos. Use your bench shot.",
+        "Keeping inventory into next week “for a bounce.”",
+      ],
+      week: [
+        { day: "T0", move: "Buy sheet + alerts. No purchases until the sheet exists." },
+        { day: "T0–24h", move: "Only local, only demo’d, only under max bid." },
+        { day: "Night", move: "Test, paste if needed, photograph." },
+        { day: "T24–48h", move: "Relist. Keep hunting only if cash remains." },
+        { day: "T72h", move: "Stop buying. Sell down. Write what you learned in the sheet." },
+      ],
+      kill: [
+        "You cannot test same night. You are a speculator, not a desk. Stop.",
+        "Two dead cards in a row. Your sourcing is the problem.",
+        "A story that feels stolen (no ID, pressure, serials scratched). Walk and do not be clever.",
+      ],
+      suggestedGoals: [
+        "Write a buy sheet with max bids before messaging anyone",
+        "Set local alerts for 4 GPU models",
+        "Complete one tested pickup in 24 hours",
+        "Relist with a bench photo within 12 hours of pickup",
+        "Flat or cash-out by hour 72",
+      ],
+      questions: [
+        "How do I set a max bid so I don’t overpay?",
+        "What do I say in the first DM?",
+        "How do I test a card the same night?",
+        "When do I stop buying?",
+      ],
+    },
+  },
+  {
+    slug: "gold-record-pawn-content",
+    code: "XAU",
+    accent: "#c9a227",
+    ink: "#1a1408",
+    category: "markets",
+    kicker: "Metals",
+    title: "Gold ripped to a record. Film the pawn counter, don’t just tweet the chart.",
+    dek: "Spot is loud. The people who actually hold metal are louder on camera.",
+    publishedAt: "2026-08-20T11:15:00.000Z",
+    readMinutes: 3,
+    marketTick: "XAU +2.1%",
+    news: {
+      headline:
+        "Gold printed a record and every finance account posted the same candle. Nobody posted the shop.",
+      body: [
+        "Spot gold ripped. Futures followed. The usual accounts posted the number in a serif font and called it a regime change.",
+        "Meanwhile, pawn shops, jewelers, and melt desks are doing the actual business: people walking in with chains, coins, and dental gold because a number on a screen finally felt real.",
+        "That counter is content and it is a customer list. Charts do not buy, people do. People who just learned their grandmother’s bracelet has a spot price.",
+      ],
+    },
+    play: {
+      headline: "Become the local metals desk on camera.",
+      teaser: "Record gold pulls metal out of drawers. The shop, not the candle, is the business.",
+    },
+    playbook: {
+      thesis:
+        "Spot prints are ads for a local, licensed buy desk. You film the explanation. They do the compliance. You take content + a cut or a calculator list. You do not melt gold in a garage.",
+      capital: "$0 with a partner; more only if you legally inventory",
+      speed: "This week to first video; this month to a repeating desk",
+      risk: "low",
+      briefing: [
+        "When gold records, drawers open. People do not need another candle screenshot. They need someone who can say, out loud, why a shop pays 70 and not 100, and where to walk in.",
+        "You are media plus distribution. The license sits with a pawn, jeweler, or dealer who already files what they have to file. If they will not let you film, you still run the calculator and send them the walk-ins.",
+        "Trust is the product. Wrong melt math is how you get yelled at on camera and how you get in trouble. Use their posted rates. Say “this is the shop’s number today, not spot.”",
+      ],
+      sequence: [
+        {
+          title: "Get one licensed partner on paper.",
+          window: "Day 1–2",
+          body: "Walk in off-peak. Offer: you send explainers and a landing page; they get walk-ins; you get to film (faces optional), a referral fee, or both. Written: no buying metal yourself, no quoting fake spot, they set the pay.",
+        },
+        {
+          title: "Learn the three piles.",
+          window: "Day 2",
+          body: "Coin (numismatic vs melt). Jewelry (karat, weight, not fashion). Scrap/dental (they handle it). If you cannot explain karat vs pennyweight in 20 seconds, do not post yet. Sit at the counter and take notes they approve.",
+        },
+        {
+          title: "Ship three explainers, no chart porn.",
+          window: "Days 3–5",
+          body: "1) “Spot vs what a shop pays.” 2) “How to weigh a chain without kidding yourself.” 3) “Coins that are worth more than melt. Don’t scrape grandma.” Vertical, 30–45 sec, shop in the background with permission.",
+        },
+        {
+          title: "Stand up a one-page calculator.",
+          window: "Days 4–6",
+          body: "Weight + karat in, “estimate only, shop decides” out. Email or SMS capture. Disclaimer fat. Link the partner’s hours and map. You do not promise a price.",
+        },
+        {
+          title: "Record-print protocol.",
+          window: "Whenever XAU rips",
+          body: "Same day: a 15-sec “today’s shop window” with their permission. Not financial advice. Not a buy call on futures. A line at a counter.",
+        },
+        {
+          title: "Turn comments into appointments.",
+          window: "Ongoing",
+          body: "Anyone asking “what’s my chain worth” gets the calculator + the address, not a DM appraisal. Appraising from a photo is how you eat a lawsuit and a bad clip.",
+        },
+        {
+          title: "Second shop only after the first prints.",
+          window: "Week 4+",
+          body: "If the partner is happy, add a second zip code. Same rules. Do not become a random “gold guru” with no counter behind you.",
+        },
+      ],
+      numbers: [
+        { label: "Shop vs spot", value: "Often 60–80% melt", note: "Say this on camera so you are not the person who promised spot." },
+        { label: "Referral", value: "Negotiate", note: "Per ticket or monthly. Get it in writing. $0 is fine if content is the business." },
+        { label: "Video length", value: "30–45 sec", note: "Explainers. Record-day clips can be 15." },
+        { label: "List", value: "Email/SMS", note: "Every calculator use is a future record-print notification." },
+      ],
+      kit: [
+        "A licensed partner, or you do not buy metal",
+        "Phone, mic, permission in writing to film the counter",
+        "One-page site or Linktree with calculator + disclaimer",
+        "Simple karat chart they approve",
+        "Map pin and hours that are actually theirs",
+      ],
+      scripts: [
+        {
+          where: "Explainer open",
+          text: "Spot is the screen. The shop pays melt minus their cut. I’ll show you the difference on a 10k chain. Then you go in, I don’t buy your gold.",
+        },
+        {
+          where: "Partner ask",
+          text: "I want to send you walk-ins from short videos and a calculator. You set every price. I don’t take metal. Can we film the counter with no faces?",
+        },
+        {
+          where: "Calculator disclaimer",
+          text: "Estimate only. Not an offer. Not advice. Final number is the licensed shop’s, today, in person.",
+        },
+      ],
+      pitfalls: [
+        "Buying or melting without the licenses your city/state requires.",
+        "Quoting a price from a blurry DM photo.",
+        "Telling people to dump numismatic coins as scrap.",
+        "Using someone else’s shop footage.",
+        "Calling it a “can’t-lose gold trade.” You are not their broker.",
+      ],
+      week: [
+        { day: "Mon", move: "Two shops. One yes or you keep walking." },
+        { day: "Tue", move: "Sit in. Learn their three piles. Get filming rules." },
+        { day: "Wed", move: "Shoot explainer 1–2." },
+        { day: "Thu", move: "Calculator page live. Disclaimer. Map." },
+        { day: "Fri", move: "Explainer 3. Post all three." },
+        { day: "Sat", move: "Be ready to send people during weekend hours." },
+      ],
+      kill: [
+        "No licensed partner after 10 shops. Run education only, never prices, or stop.",
+        "They want you to hype fake numbers. Walk.",
+        "You start taking metal “just this once.” That is the end of the legal desk.",
+      ],
+      suggestedGoals: [
+        "Get a written yes from one licensed shop",
+        "Film three explainers they approve",
+        "Launch a calculator page with a fat disclaimer",
+        "Send the first real walk-in",
+        "Write a record-print posting checklist",
+      ],
+      questions: [
+        "Can I buy gold myself or do I need a partner?",
+        "What three videos do I film first?",
+        "How do I talk about spot vs what a shop pays?",
+        "What do I never do in DMs?",
+      ],
+    },
+  },
+  {
+    slug: "temu-fee-local-brand",
+    code: "TEMU",
+    accent: "#fb7701",
+    ink: "#1a0e04",
+    category: "products",
+    kicker: "Import tax",
+    title: "Cheap import fees just jumped. The local analog brand is back on the table.",
+    dek: "When the $4 gadget stops being $4, someone in your zip code can finally charge $18 and not look crazy.",
+    publishedAt: "2026-08-19T16:20:00.000Z",
+    readMinutes: 4,
+    marketTick: "AMZN +0.6%",
+    news: {
+      headline:
+        "The loophole that made junk feel free is getting taxed like a real product. Carts will feel it before headlines do.",
+      body: [
+        "For years the hustle was obvious: list the same widget the ocean already made, undercut everyone, hide inside a marketplace.",
+        "Fees and de minimis rules are catching up. The $4 analog of everything is about to be $9, then $14, and the review section will still say it broke in a week.",
+        "That is not a tragedy. That is price cover for anyone making a slightly better object nearby, or assembling it in a spare room and shipping in two days.",
+      ],
+    },
+    play: {
+      headline: "Pick one imported hero SKU and make the local version.",
+      teaser: "When the $4 gadget becomes $14, a better local one at $18 finally fits.",
+    },
+    playbook: {
+      thesis:
+        "The floor is rising. Clone the job-to-be-done, not the trademark. One SKU, better in the hand, two-day ship, real returns. That is the whole company at the start.",
+      capital: "$250–$1,400 to samples + first 50 units",
+      speed: "14–21 days if a supplier already exists",
+      risk: "medium",
+      briefing: [
+        "Temu/Shein trained demand. Fees un-train the $4 price. You do not need a catalog. You need one object people already search, that breaks, that you can touch before you ship.",
+        "Nearshore or domestic. If it has to sit on a boat, you are back in their game. Spare-room assembly counts if the parts are real.",
+        "Your ad is speed and returns, not “premium lifestyle.” People will pay $18 if it arrives Thursday and they can send it back.",
+      ],
+      sequence: [
+        {
+          title: "Pick from use, not from dropship charts.",
+          window: "Day 1",
+          body: "Screenshot three cheap objects you actually use: mount, strap, tray, cable thing. Score: breaks often, shipping is annoying, no famous brand owns the silhouette. Pick one. Kill the other two.",
+        },
+        {
+          title: "Write the job in one sentence.",
+          window: "Day 1",
+          body: "“Holds a phone on a gym upright without rotating.” If you cannot say it, you will clone a trademark by accident. Name the job, not their product name.",
+        },
+        {
+          title: "Sample three suppliers, pay the samples.",
+          window: "Days 2–8",
+          body: "Domestic/nearshore first. Alibaba only if they have a US stock or a freight you understand. Order samples to your door. Time the transit. That transit time is your promise.",
+        },
+        {
+          title: "Kill with your hands.",
+          window: "Day 8–10",
+          body: "Bend it, wash it, drop it, smell it. If it feels like the $4 one, it is the $4 one. Only keep a sample you would gift without an apology.",
+        },
+        {
+          title: "Fifty units. Not five hundred.",
+          window: "Days 10–16",
+          body: "PO for 50. Simple pack. Your brand on a card, not a speech. Photograph on a real desk/gym, not a grey seamless if you do not have one.",
+        },
+        {
+          title: "Two doors: your page + one marketplace.",
+          window: "Days 16–18",
+          body: "Stripe on a one-page shop. Plus Amazon or Etsy, not both at first. Promise a ship-by that you have already beaten with the sample. Returns 14 days, you pay if it is your fault.",
+        },
+        {
+          title: "Price against the new floor, not the old $4.",
+          window: "Listing day",
+          body: "If junk is heading to $12–$14 landed, $18–$24 is the slot. Show the difference in one photo: thicker wall, real stitch, actual weight.",
+        },
+        {
+          title: "Do not expand SKUs until 40 units sold.",
+          window: "Weeks 3–6",
+          body: "Color 2 is how cash dies. Double the one that sells. Write down every return reason. Fix that, not your logo.",
+        },
+      ],
+      numbers: [
+        { label: "Samples", value: "$60–$200", note: "Pay them. Free samples are usually the $4 object." },
+        { label: "First PO", value: "50 units", note: "If you cannot sell 50 you cannot sell 500." },
+        { label: "Retail slot", value: "$18–$24", note: "Sits above the new junk floor. Below a designer object." },
+        { label: "Ship promise", value: "2 days", note: "Only if you have already done it with a sample." },
+      ],
+      kit: [
+        "Three competitor SKUs on your desk",
+        "Notebook with the job sentence",
+        "Supplier emails with sample invoices",
+        "One-page shop (Stripe)",
+        "Scale, camera, brown mailers",
+        "A returns address that is actually yours",
+      ],
+      scripts: [
+        {
+          where: "Product page opener",
+          text: "Same job as the $4 import. Lands in two days. You can send it back. That’s the difference.",
+        },
+        {
+          where: "Supplier email",
+          text: "Need 3 samples to [address] with a commercial invoice. If transit is over 10 days to me, this won’t work. Quote 50 and 200 after I approve.",
+        },
+        {
+          where: "Return policy, short",
+          text: "14 days. If it fails the job, I pay the label. If you just changed your mind, you pay the label.",
+        },
+      ],
+      pitfalls: [
+        "Cloning a logo, a character, or a patented silhouette.",
+        "Ordering 1,000 because the unit price looked pretty.",
+        "Promising two-day from a warehouse you have not used.",
+        "Building a “brand world” before 40 sales.",
+        "Matching the $4 price. Then you are them, with worse freight.",
+      ],
+      week: [
+        { day: "1", move: "Pick the job. Screenshot the junk version." },
+        { day: "2", move: "Email 5 suppliers. Pay 3 samples." },
+        { day: "8", move: "Hands test. Kill two." },
+        { day: "10", move: "PO 50." },
+        { day: "16", move: "Photos. Page. One marketplace." },
+        { day: "18", move: "Live. Tell 20 people who already use the junk one." },
+      ],
+      kill: [
+        "No sample feels better in the hand. You do not have a product.",
+        "Transit cannot beat a week. You cannot own “fast.”",
+        "Returns are “smells cheap.” You shipped the $4 object. Stop.",
+      ],
+      suggestedGoals: [
+        "Write one job sentence and pick a single SKU",
+        "Get three samples on your desk",
+        "Kill two samples with a hands test",
+        "PO the first 50",
+        "Make the first 10 sales before adding a color",
+      ],
+      questions: [
+        "How do I pick the SKU without cloning a trademark?",
+        "Why only 50 units on the first PO?",
+        "What price sits above the new import floor?",
+        "When do I add a second color?",
+      ],
+    },
+  },
+  {
+    slug: "empty-kiosk-live-demo",
+    code: "RENT",
+    accent: "#e23c22",
+    ink: "#fff4ee",
+    category: "street",
+    kicker: "Real world",
+    title: "Mall kiosk rents collapsed. Go stand there with the 8-ball and a card reader.",
+    dek: "The internet is loud. A folding table in a dead wing still prints if you demo something people can hold.",
+    publishedAt: "2026-08-18T13:00:00.000Z",
+    readMinutes: 3,
+    news: {
+      headline:
+        "Landlords would rather fill a kiosk than look at another empty square of tile. Weekend deals are back.",
+      body: [
+        "Foot traffic is not what it was. That is why the manager will talk to you. A two-day kiosk that used to be impossible money is now a conversation.",
+        "Online, everyone is a brand. In a hallway, you are a person with an object. People still stop for a demo. They still pay when they can turn it in their hands.",
+        "If you already have a weird accessory, a Royal Pop wrist clip, an 8-ball mount, a gadget the timeline roasted, this is where the roast becomes a line.",
+      ],
+    },
+    play: {
+      headline: "Rent the dead square. Demo the object. Take the cash.",
+      teaser: "A weekend kiosk is cheap now. Demo the thing. Tap to pay.",
+    },
+    playbook: {
+      thesis:
+        "Online is cheap attention and weak conversion. A live demo plus a tap is conversion with shoes on. One hero SKU, one joke SKU, a reader, a weekend. Book the next one before you leave.",
+      capital: "$150–$700 for a weekend including deposit",
+      speed: "Next Saturday if you call tomorrow",
+      risk: "low",
+      briefing: [
+        "Empty tile is the manager’s problem. Your offer is: you fill it for 48 hours, you look clean, you leave it clean. That is why the number is negotiable.",
+        "You are not opening a store. You are running a demo lab. If people pick it up and grin, you have a product. If they walk, you learned cheaper than another month of ads.",
+        "Film the first hour (faces only with a sign: “we may film hands on product”). That footage is next week’s internet. The kiosk is the factory for clips.",
+      ],
+      sequence: [
+        {
+          title: "Call two malls and one flea tomorrow.",
+          window: "Day 1",
+          body: "Ask for weekend kiosk / cart / dead-wing corner. Say two days, own insurance if they require it, you bring a table skirt. Get the number in a text. Compare. Do not pay month-to-month on the first test.",
+        },
+        {
+          title: "Build a 3-object table.",
+          window: "Days 2–4",
+          body: "Hero (the one that should sell). Joke (the 8-ball, the thing that stops feet). Stack of cards with a URL. Nothing else. Clutter is how you look like a flea even in a mall.",
+        },
+        {
+          title: "Money kit.",
+          window: "Day 4",
+          body: "Tap reader that works offline-ish. Cash box. Square/whatever already payout-verified. Prices on a small card, not a fight. Receipt via SMS. A charger.",
+        },
+        {
+          title: "The demo script is 12 seconds.",
+          window: "Day 5",
+          body: "Put it in their hand. One sentence what it does. One sentence what it is not (“not an AP, it’s a clip”). Ask if they want it on the wrist or the desk. Shut up.",
+        },
+        {
+          title: "Saturday open: film, don’t fiddle.",
+          window: "Sat AM",
+          body: "Arrive 40 min early. Skirt, heights, one light. Sign: filming hands. For the first hour you only demo and shoot. Do not rebuild the table in public.",
+        },
+        {
+          title: "Track every stop.",
+          window: "All weekend",
+          body: "Hash marks: stopped / handled / bought. If they handle and don’t buy, one question: “price or don’t need it?” That answer tells you if you have a product or a prop.",
+        },
+        {
+          title: "Book weekend two before you tear down.",
+          window: "Sun close",
+          body: "If you cleared rent + 30%, lock the next dates while the manager is looking at a full kiosk. If you did not, you still have the film. Do not sign a month.",
+        },
+        {
+          title: "Monday: the internet owes you now.",
+          window: "Mon",
+          body: "Cut the first-hour film into 5 clips. Same SKUs, same price. Local delivery note if you want. The kiosk paid for the content. Use it.",
+        },
+      ],
+      numbers: [
+        { label: "Weekend rent", value: "Negotiate", note: "Dead wing is cheaper. Cash deposit. Get it in writing." },
+        { label: "Clear line", value: "Rent + 30%", note: "Below that, you bought a lesson and footage. Don’t lease a month." },
+        { label: "SKU count", value: "2 + cards", note: "Hero, joke, URL. A third product is how you stall." },
+        { label: "Demo", value: "12 seconds", note: "Hands, one line, shut up." },
+      ],
+      kit: [
+        "Table, black skirt, clamp light",
+        "Tap reader + cash + charger",
+        "Hero SKU + joke SKU + 40 cards",
+        "Phone tripod aimed at hands",
+        "Small “filming the product” sign",
+        "Hash-mark card for stops/handles/buys",
+        "Insurance cert if the mall is serious",
+      ],
+      scripts: [
+        {
+          where: "Phone to mall manager",
+          text: "Looking for a two-day weekend kiosk or dead-wing corner. I’ll bring a clean table, I demo a small accessory, I’m gone Sunday night. What’s the number?",
+        },
+        {
+          where: "12-second demo",
+          text: "Clip goes on the back. Now it’s on a wrist. Not a fake AP. You want wrist or desk ball?",
+        },
+        {
+          where: "Sunday to manager",
+          text: "Table’s clean. Same spot next weekend? I’ll pay before I leave.",
+        },
+      ],
+      pitfalls: [
+        "Signing a month because the kiosk “looked professional.”",
+        "Eight SKUs and a banner with a paragraph.",
+        "No tap reader. Card people will not hunt an ATM for you.",
+        "Filming faces without a sign in a mall.",
+        "Arguing with someone who thinks you’re selling a real Royal Oak.",
+      ],
+      week: [
+        { day: "Mon", move: "Three calls. Get one written number." },
+        { day: "Tue–Thu", move: "Table kit. Two SKUs. Reader test charge to yourself." },
+        { day: "Fri", move: "Pack. Print 40 cards. Charge everything." },
+        { day: "Sat", move: "Demo + film hour one. Hash marks all day." },
+        { day: "Sun", move: "Sell. Book next weekend or walk." },
+        { day: "Mon", move: "Cut clips. Count. Decide SKU live or SKU dead." },
+      ],
+      kill: [
+        "Nobody handles the object. It is a photo, not a product. Stop renting tile.",
+        "Handles but zero buys at a sane price. Price or job is wrong. Fix before weekend two.",
+        "Mall wants a month + insurance you cannot buy this week. Flea first, mall later.",
+      ],
+      suggestedGoals: [
+        "Get a written weekend kiosk price from one mall or flea",
+        "Build a 2-SKU table with a working tap reader",
+        "Run one Saturday and log stops / handles / buys",
+        "Clear rent + 30% or treat it as a footage buy",
+        "Cut 5 clips from hour one on Monday",
+      ],
+      questions: [
+        "What do I say when I call the mall?",
+        "What goes on the table, and what stays off?",
+        "How do I know if the weekend worked?",
+        "Should I sign a month if Saturday felt busy?",
+      ],
+    },
+  },
+];

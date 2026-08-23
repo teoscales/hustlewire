@@ -1,0 +1,367 @@
+import { mkdir, readFile, writeFile } from "fs/promises";
+import path from "path";
+import { demoDeskStore } from "./demo-desk";
+import { ownerLogin } from "./office-auth";
+import { hashPassword, newDeskId, verifyPassword } from "./password";
+import { deskPass } from "./premium";
+import type {
+  Account,
+  DeskPassRecord,
+  DeskStore,
+  PromoRecord,
+  SaleRecord,
+  WriterApplication,
+} from "./desk-types";
+
+export type {
+  Account,
+  DeskPassRecord,
+  DeskStore,
+  PassKind,
+  PromoRecord,
+  PromoStatus,
+  PublicAccount,
+  SaleRecord,
+} from "./desk-types";
+
+function ensureOwner(store: DeskStore) {
+  if (!Array.isArray(store.users)) store.users = [];
+  const email = ownerLogin.email.trim().toLowerCase();
+  const existing = store.users.find((user) => user.role === "owner" || user.email === email);
+  if (existing) {
+    const sameEmail = existing.email === email;
+    const samePass = verifyPassword(ownerLogin.password, existing.passwordHash);
+    if (sameEmail && samePass) return store;
+    return {
+      ...store,
+      users: store.users.map((user) =>
+        user.id === existing.id
+          ? {
+              ...user,
+              email,
+              passwordHash: samePass ? user.passwordHash : hashPassword(ownerLogin.password),
+            }
+          : user,
+      ),
+    };
+  }
+  const owner: Account = {
+    id: "user-owner",
+    email,
+    name: "Owner",
+    passwordHash: hashPassword(ownerLogin.password),
+    role: "owner",
+    createdAt: new Date().toISOString(),
+  };
+  return { ...store, users: [owner, ...store.users] };
+}
+
+function withDemo(store: DeskStore): DeskStore {
+  const empty =
+    store.passes.length === 0 && store.sales.length === 0 && store.promos.length === 0;
+  if (store.seeded && !empty) return ensureOwner(store);
+  const demo = demoDeskStore();
+  const demoIds = new Set([
+    ...demo.passes.map((item) => item.id),
+    ...demo.sales.map((item) => item.id),
+    ...demo.promos.map((item) => item.id),
+  ]);
+  return ensureOwner({
+    seeded: true,
+    users: store.users ?? [],
+    passes: [...demo.passes, ...store.passes.filter((item) => !demoIds.has(item.id))],
+    sales: [...demo.sales, ...store.sales.filter((item) => !demoIds.has(item.id))],
+    promos: [...demo.promos, ...store.promos.filter((item) => !demoIds.has(item.id))],
+    applications: store.applications ?? [],
+    tips: store.tips ?? [],
+    chats: store.chats ?? [],
+  });
+}
+
+const storeDir = path.join(process.cwd(), "data");
+const storePath = path.join(storeDir, "desk.json");
+
+function normalizeApplications(raw: unknown): WriterApplication[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const row = item as Partial<WriterApplication> & { situation?: string };
+    if (!row.id) return [];
+    const status =
+      row.status === "approved" || row.status === "rejected" || row.status === "pending"
+        ? row.status
+        : "pending";
+    return [
+      {
+        id: row.id,
+        userId: typeof row.userId === "string" ? row.userId : "",
+        name: row.name ?? "",
+        email: row.email ?? "",
+        note: row.note || row.situation || "",
+        createdAt: row.createdAt ?? new Date().toISOString(),
+        reviewedAt: row.reviewedAt ?? null,
+        status,
+      },
+    ];
+  });
+}
+
+let queue: Promise<unknown> = Promise.resolve();
+
+function enqueue<T>(job: () => Promise<T>) {
+  const run = queue.then(job, job);
+  queue = run.then(
+    () => undefined,
+    () => undefined,
+  );
+  return run;
+}
+
+async function readStore(): Promise<DeskStore> {
+  try {
+    const raw = await readFile(storePath, "utf8");
+    const parsed = JSON.parse(raw) as Partial<DeskStore>;
+    const store: DeskStore = {
+      seeded: Boolean(parsed.seeded),
+      users: Array.isArray(parsed.users) ? parsed.users : [],
+      passes: Array.isArray(parsed.passes) ? parsed.passes : [],
+      sales: Array.isArray(parsed.sales) ? parsed.sales : [],
+      promos: Array.isArray(parsed.promos) ? parsed.promos : [],
+      applications: normalizeApplications(parsed.applications),
+      tips: Array.isArray(parsed.tips) ? parsed.tips : [],
+      chats: Array.isArray(parsed.chats) ? parsed.chats : [],
+    };
+    const next = withDemo(store);
+    if (next !== store) await writeStore(next);
+    return next;
+  } catch {
+    const demo = ensureOwner(demoDeskStore());
+    await writeStore(demo);
+    return demo;
+  }
+}
+
+async function writeStore(store: DeskStore) {
+  await mkdir(storeDir, { recursive: true });
+  await writeFile(storePath, JSON.stringify(store, null, 2));
+}
+
+export async function getDeskStore() {
+  return enqueue(() => readStore());
+}
+
+export async function updateDeskStore<T>(fn: (store: DeskStore) => T | Promise<T>) {
+  return enqueue(async () => {
+    const store = await readStore();
+    const result = await fn(store);
+    await writeStore(store);
+    return result;
+  });
+}
+
+export function isActivePass(pass: DeskPassRecord, now = Date.now()) {
+  if (pass.endedAt) return false;
+  return new Date(pass.expiresAt).getTime() > now;
+}
+
+export function activePasses(store: DeskStore, now = Date.now()) {
+  const latest = new Map<string, DeskPassRecord>();
+  for (const pass of store.passes) {
+    if (!isActivePass(pass, now)) continue;
+    const key = pass.userId || pass.visitorId;
+    const current = latest.get(key);
+    if (!current || current.expiresAt < pass.expiresAt) {
+      latest.set(key, pass);
+    }
+  }
+  return [...latest.values()];
+}
+
+export function userHasPass(store: DeskStore, userId: string | null, now = Date.now()) {
+  if (!userId) return false;
+  return store.passes.some((pass) => pass.userId === userId && isActivePass(pass, now));
+}
+
+export function visitorHasPass(store: DeskStore, visitorId: string | null, now = Date.now()) {
+  if (!visitorId) return false;
+  return store.passes.some((pass) => pass.visitorId === visitorId && isActivePass(pass, now));
+}
+
+export function monthBounds(now = new Date()) {
+  const start = new Date(now.getFullYear(), now.getMonth(), 1);
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  return { start, end };
+}
+
+export function officeStats(store: DeskStore, now = new Date()) {
+  const { start, end } = monthBounds(now);
+  const live = activePasses(store, now.getTime());
+  const monthSales = store.sales.filter((sale) => {
+    const at = new Date(sale.createdAt);
+    return at >= start && at < end;
+  });
+  const revenue = store.sales.reduce((sum, sale) => sum + sale.amount, 0);
+  const monthRevenue = monthSales.reduce((sum, sale) => sum + sale.amount, 0);
+  return {
+    revenue,
+    monthRevenue,
+    saleCount: store.sales.length,
+    monthSaleCount: monthSales.length,
+    price: deskPass.price,
+    activeCount: live.length,
+    paidActive: live.filter((pass) => pass.kind === "paid").length,
+    promoActive: live.filter((pass) => pass.kind === "promo").length,
+    pendingReviews: store.promos.filter((promo) => promo.status === "pending").length,
+    approvedPromos: store.promos.filter((promo) => promo.status === "approved").length,
+  };
+}
+
+export function plusMonth(from = new Date()) {
+  const next = new Date(from);
+  next.setDate(next.getDate() + 30);
+  return next.toISOString();
+}
+
+export function startPaidPass(
+  store: DeskStore,
+  who: {
+    visitorId: string;
+    userId: string;
+    name: string;
+    email: string;
+    expiresAt?: string;
+    stripeCustomerId?: string;
+    stripeSubscriptionId?: string;
+    stripeSessionId?: string;
+  },
+) {
+  const existing = store.passes.find(
+    (pass) => pass.userId === who.userId && isActivePass(pass),
+  );
+  if (existing) {
+    if (who.expiresAt) existing.expiresAt = who.expiresAt;
+    if (who.stripeCustomerId) existing.stripeCustomerId = who.stripeCustomerId;
+    if (who.stripeSubscriptionId) existing.stripeSubscriptionId = who.stripeSubscriptionId;
+    if (who.stripeSessionId) existing.stripeSessionId = who.stripeSessionId;
+    existing.kind = "paid";
+    existing.endedAt = null;
+    existing.cancelAtPeriodEnd = false;
+    let sale: SaleRecord | null = null;
+    if (
+      who.stripeSessionId &&
+      !store.sales.some((row) => row.stripeSessionId === who.stripeSessionId)
+    ) {
+      sale = {
+        id: newDeskId(),
+        passId: existing.id,
+        visitorId: who.visitorId,
+        userId: who.userId,
+        amount: deskPass.price,
+        createdAt: new Date().toISOString(),
+        name: who.name,
+        email: who.email,
+        stripeSessionId: who.stripeSessionId,
+      };
+      store.sales.push(sale);
+    }
+    return { pass: existing, sale, created: false };
+  }
+
+  const now = new Date().toISOString();
+  const pass: DeskPassRecord = {
+    id: newDeskId(),
+    visitorId: who.visitorId,
+    userId: who.userId,
+    kind: "paid",
+    createdAt: now,
+    expiresAt: who.expiresAt ?? plusMonth(),
+    endedAt: null,
+    name: who.name,
+    email: who.email,
+    stripeCustomerId: who.stripeCustomerId,
+    stripeSubscriptionId: who.stripeSubscriptionId,
+    stripeSessionId: who.stripeSessionId,
+    cancelAtPeriodEnd: false,
+  };
+  const sale: SaleRecord = {
+    id: newDeskId(),
+    passId: pass.id,
+    visitorId: who.visitorId,
+    userId: who.userId,
+    amount: deskPass.price,
+    createdAt: now,
+    name: who.name,
+    email: who.email,
+    stripeSessionId: who.stripeSessionId,
+  };
+  store.passes.push(pass);
+  store.sales.push(sale);
+  return { pass, sale, created: true };
+}
+
+export function endUserPass(store: DeskStore, userId: string) {
+  const now = new Date().toISOString();
+  for (const pass of store.passes) {
+    if (pass.userId === userId && isActivePass(pass)) {
+      pass.endedAt = now;
+    }
+  }
+}
+
+export function schedulePassCancel(store: DeskStore, userId: string, expiresAt: string) {
+  for (const pass of store.passes) {
+    if (pass.userId === userId && isActivePass(pass)) {
+      pass.cancelAtPeriodEnd = true;
+      pass.expiresAt = expiresAt;
+      pass.endedAt = null;
+    }
+  }
+}
+
+export function syncPassPeriod(
+  store: DeskStore,
+  userId: string,
+  expiresAt: string,
+  cancelAtPeriodEnd: boolean,
+) {
+  for (const pass of store.passes) {
+    if (pass.userId === userId && isActivePass(pass)) {
+      pass.expiresAt = expiresAt;
+      pass.cancelAtPeriodEnd = cancelAtPeriodEnd;
+      pass.endedAt = null;
+    }
+  }
+}
+
+export function activePassForUser(store: DeskStore, userId: string) {
+  return store.passes.find((pass) => pass.userId === userId && isActivePass(pass)) ?? null;
+}
+
+export function grantPromoPass(store: DeskStore, promo: PromoRecord, userId?: string) {
+  if (promo.passId) {
+    const existing = store.passes.find((pass) => pass.id === promo.passId);
+    if (existing) {
+      if (userId && !existing.userId) existing.userId = userId;
+      if (userId) promo.userId = userId;
+      return existing;
+    }
+  }
+  const now = new Date().toISOString();
+  const pass: DeskPassRecord = {
+    id: newDeskId(),
+    visitorId: promo.visitorId,
+    userId: userId ?? promo.userId,
+    kind: "promo",
+    createdAt: now,
+    expiresAt: plusMonth(),
+    endedAt: null,
+    name: promo.name,
+    email: promo.email,
+    cancelAtPeriodEnd: false,
+  };
+  store.passes.push(pass);
+  promo.claimedAt = now;
+  promo.passId = pass.id;
+  if (userId) promo.userId = userId;
+  return pass;
+}
