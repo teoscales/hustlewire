@@ -6,6 +6,7 @@ import { NewsUpdatedSince } from "@/components/NewsUpdatedSince";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Ticker } from "@/components/Ticker";
 import { getNewsUpdatedAt } from "@/lib/articles";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,6 +53,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         </div>
         <div className="flex flex-1 flex-col">{children}</div>
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
