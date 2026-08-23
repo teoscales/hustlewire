@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { kvConfigured, kvGetDesk, kvSetDesk } from "./desk-kv";
-import { ownerLogin } from "./office-auth";
+import { ownerLogins } from "./office-auth";
 import { hashPassword, newDeskId, verifyPassword } from "./password";
 import { deskPass } from "./premium";
 import type {
@@ -48,36 +48,64 @@ export function recordLogin(store: DeskStore, user: Account, kind: "signup" | "l
   store.logins = store.logins.slice(0, 200);
 }
 
-let ownerVerified = "";
+const ownerVerified = new Set<string>();
 
 function ensureOwner(store: DeskStore) {
   if (!Array.isArray(store.users)) store.users = [];
   if (!Array.isArray(store.logins)) store.logins = [];
-  const email = ownerLogin.email;
-  store.users = store.users.filter((user) => user.role !== "owner" || user.email === email);
-  const existing = store.users.find((user) => user.role === "owner" && user.email === email);
-  if (!ownerLogin.password) return store;
+  const emails = new Set(ownerLogins.map((owner) => owner.email));
+  store.users = store.users.filter((user) => user.role !== "owner" || emails.has(user.email));
+
+  let next: DeskStore = store;
+  ownerLogins.forEach((login, index) => {
+    if (!login.password) return;
+    next = upsertOwner(next, login, index === 0 ? "user-owner" : `user-owner-${index + 1}`);
+  });
+  return next;
+}
+
+function upsertOwner(
+  store: DeskStore,
+  login: { email: string; password: string },
+  id: string,
+): DeskStore {
+  const existing =
+    store.users.find((user) => user.email === login.email) ??
+    store.users.find((user) => user.id === id);
   if (existing) {
-    const mark = `${existing.id}:${ownerLogin.password}`;
-    if (ownerVerified === mark) return store;
-    if (verifyPassword(ownerLogin.password, existing.passwordHash)) {
-      ownerVerified = mark;
+    const mark = `${existing.id}:${login.password}`;
+    if (ownerVerified.has(mark) && existing.role === "owner" && existing.email === login.email) {
+      return store;
+    }
+    if (
+      existing.role === "owner" &&
+      existing.email === login.email &&
+      verifyPassword(login.password, existing.passwordHash)
+    ) {
+      ownerVerified.add(mark);
       return store;
     }
     return {
       ...store,
       users: store.users.map((user) =>
         user.id === existing.id
-          ? { ...user, email, passwordHash: hashPassword(ownerLogin.password) }
+          ? {
+              ...user,
+              id: existing.role === "owner" ? existing.id : id,
+              email: login.email,
+              name: user.name || "Owner",
+              passwordHash: hashPassword(login.password),
+              role: "owner",
+            }
           : user,
       ),
     };
   }
   const owner: Account = {
-    id: "user-owner",
-    email,
+    id,
+    email: login.email,
     name: "Owner",
-    passwordHash: hashPassword(ownerLogin.password),
+    passwordHash: hashPassword(login.password),
     role: "owner",
     createdAt: new Date().toISOString(),
   };
