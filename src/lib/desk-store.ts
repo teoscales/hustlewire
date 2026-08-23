@@ -92,6 +92,15 @@ function emptyStore(): DeskStore {
 
 const storeDir = path.join(process.cwd(), "data");
 const storePath = path.join(storeDir, "desk.json");
+const tmpPath = path.join("/tmp", "hustlewire-desk.json");
+
+function readPaths() {
+  return process.env.VERCEL ? [tmpPath, storePath] : [storePath, tmpPath];
+}
+
+function writePaths() {
+  return process.env.VERCEL ? [tmpPath] : [storePath];
+}
 
 function normalizeApplications(raw: unknown): WriterApplication[] {
   if (!Array.isArray(raw)) return [];
@@ -129,34 +138,48 @@ function enqueue<T>(job: () => Promise<T>) {
   return run;
 }
 
+function parseStore(raw: string): DeskStore {
+  const parsed = JSON.parse(raw) as Partial<DeskStore>;
+  return {
+    seeded: Boolean(parsed.seeded),
+    users: Array.isArray(parsed.users) ? parsed.users : [],
+    passes: Array.isArray(parsed.passes) ? parsed.passes : [],
+    sales: Array.isArray(parsed.sales) ? parsed.sales : [],
+    promos: Array.isArray(parsed.promos) ? parsed.promos : [],
+    applications: normalizeApplications(parsed.applications),
+    tips: Array.isArray(parsed.tips) ? parsed.tips : [],
+    chats: Array.isArray(parsed.chats) ? parsed.chats : [],
+    logins: Array.isArray(parsed.logins) ? parsed.logins : [],
+  };
+}
+
 async function readStore(): Promise<DeskStore> {
-  try {
-    const raw = await readFile(storePath, "utf8");
-    const parsed = JSON.parse(raw) as Partial<DeskStore>;
-    const store: DeskStore = {
-      seeded: Boolean(parsed.seeded),
-      users: Array.isArray(parsed.users) ? parsed.users : [],
-      passes: Array.isArray(parsed.passes) ? parsed.passes : [],
-      sales: Array.isArray(parsed.sales) ? parsed.sales : [],
-      promos: Array.isArray(parsed.promos) ? parsed.promos : [],
-      applications: normalizeApplications(parsed.applications),
-      tips: Array.isArray(parsed.tips) ? parsed.tips : [],
-      chats: Array.isArray(parsed.chats) ? parsed.chats : [],
-      logins: Array.isArray(parsed.logins) ? parsed.logins : [],
-    };
-    const next = ensureOwner(store);
-    if (next !== store) await writeStore(next);
-    return next;
-  } catch {
-    const empty = ensureOwner(emptyStore());
-    await writeStore(empty);
-    return empty;
+  for (const file of readPaths()) {
+    try {
+      const store = parseStore(await readFile(file, "utf8"));
+      const next = ensureOwner(store);
+      if (next !== store) await writeStore(next);
+      return next;
+    } catch {
+      // try the next path
+    }
   }
+  const empty = ensureOwner(emptyStore());
+  await writeStore(empty);
+  return empty;
 }
 
 async function writeStore(store: DeskStore) {
-  await mkdir(storeDir, { recursive: true });
-  await writeFile(storePath, JSON.stringify(store, null, 2));
+  const body = JSON.stringify(store, null, 2);
+  for (const file of writePaths()) {
+    try {
+      await mkdir(path.dirname(file), { recursive: true });
+      await writeFile(file, body);
+      return;
+    } catch {
+      // Vercel’s app filesystem is read-only; /tmp still works.
+    }
+  }
 }
 
 export async function getDeskStore() {

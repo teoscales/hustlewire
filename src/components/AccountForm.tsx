@@ -21,45 +21,52 @@ export function AccountForm({
     setBusy(true);
     setError("");
     const form = new FormData(event.currentTarget);
-    const res = await fetch("/api/account", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: mode,
-        name: String(form.get("name") ?? ""),
-        email: String(form.get("email") ?? ""),
-        password: String(form.get("password") ?? ""),
-        privacy: form.get("privacy") === "on",
-      }),
-    });
-    const data = (await res.json()) as { error?: string };
-    if (!res.ok) {
-      setBusy(false);
-      setError(data.error ?? "Could not continue");
-      return;
-    }
-    if (unlock) {
-      const checkout = await fetch("/api/stripe/checkout", {
+    try {
+      const res = await fetch("/api/account", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ from: next }),
+        body: JSON.stringify({
+          action: mode,
+          name: String(form.get("name") ?? ""),
+          email: String(form.get("email") ?? ""),
+          password: String(form.get("password") ?? ""),
+          privacy: form.get("privacy") === "on",
+        }),
       });
-    const data = (await checkout.json().catch(() => ({}))) as { url?: string; error?: string };
-      if (checkout.ok && data.url) {
-        window.location.href = data.url;
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) {
+        setError(data.error ?? "Could not continue");
         return;
       }
-      if (checkout.status === 401) {
-        router.push(`/account?next=${encodeURIComponent(next)}&unlock=1`);
+      if (unlock) {
+        const checkout = await fetch("/api/stripe/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ from: next }),
+        });
+        const checkoutData = (await checkout.json().catch(() => ({}))) as {
+          url?: string;
+          error?: string;
+        };
+        if (checkout.ok && checkoutData.url) {
+          window.location.href = checkoutData.url;
+          return;
+        }
+        if (checkout.status === 401) {
+          router.push(`/account?next=${encodeURIComponent(next)}&unlock=1`);
+          return;
+        }
+        setError(checkoutData.error ?? "Signed in. Stripe checkout did not start.");
+        router.refresh();
         return;
       }
-      setBusy(false);
-      setError(data.error ?? "Signed in. Stripe checkout did not start.");
+      router.push(next);
       router.refresh();
-      return;
+    } catch {
+      setError("Could not reach the desk. Try again.");
+    } finally {
+      setBusy(false);
     }
-    router.push(next);
-    router.refresh();
   }
 
   return (
