@@ -2,6 +2,146 @@ import type { Article } from "./types";
 
 export const articles: Article[] = [
   {
+    slug: "cyberleek-gta6-memecoin",
+    code: "CL",
+    accent: "#7c5cff",
+    ink: "#f4f0ff",
+    category: "markets",
+    kicker: "The leak",
+    title: "Cyberleek leaked GTA 6. Then they launched a memecoin.",
+    dek: "The group dumping GTA 6 clips just stood up a coin. The leak is still not yours to sell. Their token is not a gift. It is how they cash the crowd.",
+    publishedAt: "2026-08-23T14:13:00.000Z",
+    readMinutes: 4,
+    featured: true,
+    marketTick: "SOL +1.1%",
+    news: {
+      headline:
+        "Cyberleek, the group posting leaked GTA 6 video, launched a memecoin. The timeline treated it like a drop. It is a cash-out.",
+      body: [
+        "A leak crew is not a studio. Cyberleek has been feeding the wait with GTA 6 footage that is not theirs to ship. That already made a crowd: people who want the next clip, the next map shot, the next “is this real.” Today that crowd got a contract address.",
+        "The coin is the tell. When a leak group launches a token, they are not sharing upside. They are converting attention into a bag they can sell into. Early buyers are the exit. Later buyers are the documentary.",
+        "Rockstar and Take-Two still own the game. Hosting their files, clipping leaked cutscenes into a “coin launch video,” or printing GTA marks on a token page is how you get banned and mailed. The news is that a leak desk tried to financialize the wait. The play is not to copy them.",
+        "What actually moves: a recap of what happened, filmed from public posts, that says the coin is a dump with extra steps. A chart explainer that never shows leaked gameplay. A waiting-room clip that does not send people to their contract. The comments will ask for the CA. That ask is the trap.",
+      ],
+    },
+    play: {
+      headline: "Cover the coin. Do not ape it. Do not clip the leak.",
+      teaser: "Explain the launch. Show the dump pattern. Never post their contract. Never post their files.",
+    },
+    playbook: {
+      thesis:
+        "Cyberleek used leaked GTA 6 video to build a crowd, then launched a memecoin to cash it. You sell the explanation of that move. You do not buy their token, host their files, or become their unpaid launch channel.",
+      capital: "$0",
+      speed: "Tonight to first recap. 48 hours to see if you held the line.",
+      risk: "high",
+      briefing: [
+        "Illegal / kill-the-desk: posting leaked GTA 6 footage, linking to their files, shilling their contract, fake “official Cyberleek” pages, merch with GTA / Rockstar marks. That is not coverage. That is distribution for a leak crew and a coin dump.",
+        "Legal lane: your face, public news posts, a chart screenshot of a public pair, a plain-language “this is how leak coins dump.” No leaked gameplay in the frame. No contract address in the caption.",
+        "The product is a 40-second “they leaked, then they launched a coin” recap. Not a buy call. Not a copycat token.",
+        "If you cannot make the video without their leak clips, you do not have a desk. You have a megaphone for them.",
+      ],
+      sequence: [
+        {
+          title: "Write the story from public posts. Do not open the leak.",
+          window: "Hour 1",
+          body: "Collect headlines, public social posts, and the fact that a memecoin launched. Six bullets: who Cyberleek is, what they leaked, that they launched a coin, why leak-group coins dump, what you will not show, what you will not link. If you need their gameplay to make the video, stop.",
+        },
+        {
+          title: "One lane. Recap the news. Kill the trade.",
+          window: "Hour 1",
+          body: "You are not launching a rival coin. You are not “calling the next 100x.” You are explaining that a leak group monetized a crowd with a token. Circle that. If you want a chart, use a public pair screenshot with the name blurred if you have to. Never paste the CA.",
+        },
+        {
+          title: "Film three recaps tonight. Same rule in every one.",
+          window: "Night 1",
+          body: "Vertical. Hook: “The GTA 6 leak crew launched a memecoin. Here’s what that actually is.” Three facts. One “this is how they exit.” CTA is “don’t ape leak coins,” not “chart in bio.” No leaked gameplay, not even in a corner. Post one now.",
+        },
+        {
+          title: "Pin the rule in the bio before the comments fill with CAs.",
+          window: "Night 1",
+          body: "Bio: “Recaps. No files. No contract addresses. I don’t shill leak coins.” First comment you pin: you will delete CA spam. If you leave their contract in your comments, you became their launch pad.",
+        },
+        {
+          title: "The dump recap is the product, not a buy list.",
+          window: "Days 2–4",
+          body: "Day 2: “What happened in the first 24 hours of a leak-group coin.” Day 3: “Why you don’t ape a team that already steals a game.” Day 4: “Waiting room without their clips.” Same hour. Delete any post that snuck leaked footage or a CA.",
+        },
+        {
+          title: "If they ask for the coin, that is the test.",
+          window: "All week",
+          body: "Reply once, in public: you don’t post contracts from leak groups. Then delete repeats. Anyone DMing “send CA” gets ignored. You are not their help desk.",
+        },
+        {
+          title: "Money only after clean posts, and never from their token.",
+          window: "Days 7–14",
+          body: "Ads on recaps when the platform allows. Super Thanks. A $5 note: “leak crew coins, how the dump works,” text only, no CA, no files. You do not take a cut of their coin. You do not launch a parody token with GTA art.",
+        },
+      ],
+      numbers: [
+        { label: "First videos", value: "3 tonight", note: "News recap. Zero leaked gameplay. Zero contract addresses." },
+        { label: "Spend on their coin", value: "$0", note: "You are not the exit liquidity." },
+        { label: "CA in captions", value: "0", note: "If it is in the video, you are their billboard." },
+        { label: "Note later", value: "$5", note: "How leak-group coins dump. Text. No files. No ticker to ape." },
+      ],
+      kit: [
+        "Phone, mic, light you already own",
+        "Public news posts, not a torrent",
+        "Notes: rumor vs confirmed vs “they launched a coin”",
+        "A pinned comment that bans CA spam",
+        "A written rule: no files, no CA, no GTA art on a token",
+      ],
+      scripts: [
+        {
+          where: "Recap open",
+          text: "Cyberleek leaked GTA 6 video, then launched a memecoin. I’m not posting the files. I’m not posting the contract. Forty seconds on what that move is.",
+        },
+        {
+          where: "Bio",
+          text: "Recaps on the leak-coin story. No files. No CA. I don’t ape leak-group tokens and I don’t send yours.",
+        },
+        {
+          where: "Comment asking for the contract",
+          text: "I don’t post it. Leak-group coins are how they cash the crowd. Recaps stay on the channel.",
+        },
+      ],
+      pitfalls: [
+        "Using leaked GTA 6 gameplay as B-roll for the coin video.",
+        "Pasting their contract “so people can research.”",
+        "A copycat token with Vice City art.",
+        "A follow-for-CA sticker.",
+        "Calling it an “official Cyberleek drop” like it is a studio.",
+        "Buying a bag so your recap “has skin in the game.”",
+      ],
+      week: [
+        { day: "Tonight", move: "Six bullets. Three recaps. Post one. Pin the no-CA rule." },
+        { day: "Mon", move: "Dump-pattern recap. Delete CA comments." },
+        { day: "Tue–Wed", move: "Daily. Same hour. Still no files." },
+        { day: "Thu", move: "Kill any clip that snuck leaked footage." },
+        { day: "Fri", move: "If 10 clean posts exist, draft the $5 note. Still no ticker." },
+        { day: "Sat", move: "Decide: you covered a cash-out, or you advertised it." },
+      ],
+      kill: [
+        "You needed their leak clips to get views. Stop. You are their distribution.",
+        "You posted the contract and called it journalism. Take it down.",
+        "A strike or a letter. Do not re-upload muted leak footage.",
+        "Your comments are only CA requests. You built a leak-coin help desk. Close it.",
+      ],
+      suggestedGoals: [
+        "Write the story in six bullets with no files on the machine",
+        "Post three recaps with zero leaked gameplay and zero CAs",
+        "Pin a no-contract rule and enforce it",
+        "Ignore the first “send CA” DM",
+        "Ship a $5 text note only after 10 clean posts",
+      ],
+      questions: [
+        "Can I show leaked GTA 6 footage if I am exposing the coin?",
+        "Should I post the contract so people don’t get fake links?",
+        "How do I make money on this without launching a token?",
+        "What do I say when comments only want the CA?",
+      ],
+    },
+  },
+  {
     slug: "gta-6-leak-waiting-room",
     code: "VI",
     accent: "#ec008c",
@@ -12,7 +152,7 @@ export const articles: Article[] = [
     dek: "The leak is the news. The money is recaps, maps, and the wait, not Rockstar’s build, not their logos.",
     publishedAt: "2026-08-22T17:39:00.000Z",
     readMinutes: 4,
-    featured: true,
+    featured: false,
     marketTick: "TTWO +2.8%",
     news: {
       headline:
