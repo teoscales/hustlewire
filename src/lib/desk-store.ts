@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
+import { kvConfigured, kvGetDesk, kvSetDesk } from "./desk-kv";
 import { ownerLogin } from "./office-auth";
 import { hashPassword, newDeskId, verifyPassword } from "./password";
 import { deskPass } from "./premium";
@@ -47,6 +48,8 @@ export function recordLogin(store: DeskStore, user: Account, kind: "signup" | "l
   store.logins = store.logins.slice(0, 200);
 }
 
+let ownerVerified = "";
+
 function ensureOwner(store: DeskStore) {
   if (!Array.isArray(store.users)) store.users = [];
   if (!Array.isArray(store.logins)) store.logins = [];
@@ -55,7 +58,12 @@ function ensureOwner(store: DeskStore) {
   const existing = store.users.find((user) => user.role === "owner" && user.email === email);
   if (!ownerLogin.password) return store;
   if (existing) {
-    if (verifyPassword(ownerLogin.password, existing.passwordHash)) return store;
+    const mark = `${existing.id}:${ownerLogin.password}`;
+    if (ownerVerified === mark) return store;
+    if (verifyPassword(ownerLogin.password, existing.passwordHash)) {
+      ownerVerified = mark;
+      return store;
+    }
     return {
       ...store,
       users: store.users.map((user) =>
@@ -154,6 +162,15 @@ function parseStore(raw: string): DeskStore {
 }
 
 async function readStore(): Promise<DeskStore> {
+  if (kvConfigured()) {
+    const raw = await kvGetDesk();
+    if (raw) {
+      const store = parseStore(raw);
+      const next = ensureOwner(store);
+      if (next !== store) await writeStore(next);
+      return next;
+    }
+  }
   for (const file of readPaths()) {
     try {
       const store = parseStore(await readFile(file, "utf8"));
@@ -171,13 +188,14 @@ async function readStore(): Promise<DeskStore> {
 
 async function writeStore(store: DeskStore) {
   const body = JSON.stringify(store, null, 2);
+  if (kvConfigured()) await kvSetDesk(body);
   for (const file of writePaths()) {
     try {
       await mkdir(path.dirname(file), { recursive: true });
       await writeFile(file, body);
       return;
     } catch {
-      // Vercel’s app filesystem is read-only; /tmp still works.
+      // Vercel’s app filesystem is read-only; /tmp still works as a local cache.
     }
   }
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { btn } from "@/lib/ui";
 
@@ -11,7 +10,6 @@ export function AccountForm({
   next?: string;
   unlock?: boolean;
 }) {
-  const router = useRouter();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -21,6 +19,7 @@ export function AccountForm({
     setBusy(true);
     setError("");
     const form = new FormData(event.currentTarget);
+    let signedIn = false;
     try {
       const res = await fetch("/api/account", {
         method: "POST",
@@ -38,6 +37,7 @@ export function AccountForm({
         setError(data.error ?? "Could not continue");
         return;
       }
+      signedIn = true;
       if (unlock) {
         const checkout = await fetch("/api/stripe/checkout", {
           method: "POST",
@@ -49,23 +49,21 @@ export function AccountForm({
           error?: string;
         };
         if (checkout.ok && checkoutData.url) {
-          window.location.href = checkoutData.url;
+          window.location.assign(checkoutData.url);
           return;
         }
         if (checkout.status === 401) {
-          router.push(`/account?next=${encodeURIComponent(next)}&unlock=1`);
+          window.location.assign(`/account?next=${encodeURIComponent(next)}&unlock=1`);
           return;
         }
         setError(checkoutData.error ?? "Signed in. Stripe checkout did not start.");
-        router.refresh();
-        return;
       }
-      router.push(next);
-      router.refresh();
+      window.location.assign(next);
     } catch {
       setError("Could not reach the desk. Try again.");
+      signedIn = false;
     } finally {
-      setBusy(false);
+      if (!signedIn) setBusy(false);
     }
   }
 
@@ -157,14 +155,12 @@ export function AccountForm({
 }
 
 export function SignOutButton() {
-  const router = useRouter();
   const [busy, setBusy] = useState(false);
 
   async function stop() {
     setBusy(true);
     await fetch("/api/account", { method: "DELETE" });
-    router.push("/account");
-    router.refresh();
+    window.location.assign("/account");
   }
 
   return (

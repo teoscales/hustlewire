@@ -1,34 +1,36 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getDeskStore, recordLogin, updateDeskStore } from "@/lib/desk-store";
+import { recordLogin, updateDeskStore } from "@/lib/desk-store";
 import type { Account } from "@/lib/desk-types";
-import { ACCOUNT_COOKIE, MONTH_SECONDS, accountCookie } from "@/lib/ids";
-import { toPublicAccount } from "@/lib/account";
+import { MONTH_SECONDS, accountCookie } from "@/lib/ids";
+import { getAccount, toPublicAccount } from "@/lib/account";
 import {
   createSessionToken,
   hashPassword,
   newDeskId,
-  readSessionToken,
   verifyPassword,
 } from "@/lib/password";
 import { isEmail, normalizeEmail } from "@/lib/video";
 
 function sessionResponse(account: Account) {
   const res = NextResponse.json({ ok: true, account: toPublicAccount(account) });
-  res.cookies.set(accountCookie(createSessionToken(account.id), MONTH_SECONDS));
+  res.cookies.set(accountCookie(createSessionToken(toPublicAccount(account)), MONTH_SECONDS));
   return res;
 }
 
 export async function GET() {
-  const jar = await cookies();
-  const userId = readSessionToken(jar.get(ACCOUNT_COOKIE)?.value);
-  if (!userId) return NextResponse.json({ account: null });
-  const store = await getDeskStore();
-  const account = store.users.find((user) => user.id === userId);
-  return NextResponse.json({ account: account ? toPublicAccount(account) : null });
+  const account = await getAccount();
+  return NextResponse.json({ account });
 }
 
 export async function POST(request: Request) {
+  try {
+    return await handleAccount(request);
+  } catch {
+    return NextResponse.json({ error: "Could not continue" }, { status: 500 });
+  }
+}
+
+async function handleAccount(request: Request) {
   const body = (await request.json()) as {
     action?: "login" | "signup";
     name?: string;

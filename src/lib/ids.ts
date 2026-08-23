@@ -10,6 +10,7 @@ export function accountCookie(value: string, maxAge: number) {
     value,
     httpOnly: true,
     sameSite: "lax" as const,
+    secure: process.env.VERCEL === "1" || process.env.NODE_ENV === "production",
     path: "/",
     maxAge,
   };
