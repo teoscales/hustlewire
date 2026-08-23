@@ -37,7 +37,11 @@ export default async function MyDeskPage() {
         Save a play from any story. Playbook goals load into that idea automatically. You
         will see them in the slot, tagged Playbook.
       </p>
-      {pass ? (
+      {pass?.unlimited ? (
+        <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-400">
+          Desk Pass is unlimited on this account.
+        </p>
+      ) : pass?.expiresAt ? (
         <div className="mt-3 max-w-xl">
           <PassRemaining expiresAt={pass.expiresAt} canceling={pass.cancelAtPeriodEnd} />
         </div>
@@ -45,12 +49,14 @@ export default async function MyDeskPage() {
       <div className="mt-10">
         <IdeaSlotBoard initial={studio} stories={stories} />
       </div>
-      <div className="mt-16">
-        <UnsubscribeSection
-          expiresAt={pass?.expiresAt}
-          canceling={pass?.cancelAtPeriodEnd}
-        />
-      </div>
+      {pass?.unlimited ? null : (
+        <div className="mt-16">
+          <UnsubscribeSection
+            expiresAt={pass?.expiresAt ?? undefined}
+            canceling={pass?.cancelAtPeriodEnd}
+          />
+        </div>
+      )}
     </main>
   );
 }

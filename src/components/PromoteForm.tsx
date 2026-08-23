@@ -94,9 +94,6 @@ export function ClaimPassButton({ promo }: { promo: PromoRecord }) {
         {busy ? "Unlocking…" : "Claim 1 free month"}
       </button>
       {error ? <p className="mt-3 text-sm text-rose-400">{error}</p> : null}
-      {promo.reviewNote ? (
-        <p className="mt-3 text-sm text-zinc-400">Note from the desk: {promo.reviewNote}</p>
-      ) : null}
     </div>
   );
 }

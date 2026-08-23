@@ -29,6 +29,7 @@ export function AccountForm({
         name: String(form.get("name") ?? ""),
         email: String(form.get("email") ?? ""),
         password: String(form.get("password") ?? ""),
+        privacy: form.get("privacy") === "on",
       }),
     });
     const data = (await res.json()) as { error?: string };
@@ -114,6 +115,23 @@ export function AccountForm({
             className="mt-2 w-full rounded-full border border-white/10 bg-zinc-950 px-4 py-2.5 text-sm text-white outline-none focus:border-[#d8ff3c]"
           />
         </label>
+        {mode === "signup" ? (
+          <label className="flex items-start gap-3 text-sm leading-6 text-zinc-400">
+            <input
+              name="privacy"
+              type="checkbox"
+              required
+              className="mt-1 size-4 shrink-0 accent-[#d8ff3c]"
+            />
+            <span>
+              I agree to the{" "}
+              <a href="/privacy" className="text-zinc-200 underline underline-offset-2">
+                Privacy policy
+              </a>
+              .
+            </span>
+          </label>
+        ) : null}
         {error ? <p className="text-sm text-rose-400">{error}</p> : null}
         <button type="submit" disabled={busy} className={`w-full ${btn.primary}`}>
           {busy

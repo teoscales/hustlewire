@@ -1,6 +1,5 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
-import { demoDeskStore } from "./demo-desk";
 import { ownerLogin } from "./office-auth";
 import { hashPassword, newDeskId, verifyPassword } from "./password";
 import { deskPass } from "./premium";
@@ -24,23 +23,44 @@ export type {
   SaleRecord,
 } from "./desk-types";
 
+export function accountStatus(store: DeskStore, user: Account) {
+  if (user.role === "owner") return "Owner";
+  if (userHasPass(store, user.id)) return "Desk Pass";
+  const writer = store.applications.find((item) => item.userId === user.id);
+  if (writer?.status === "approved") return "Writer";
+  if (writer?.status === "pending") return "Writer pending";
+  return "Free";
+}
+
+export function recordLogin(store: DeskStore, user: Account, kind: "signup" | "login") {
+  if (!Array.isArray(store.logins)) store.logins = [];
+  store.logins.unshift({
+    id: newDeskId(),
+    userId: user.id,
+    email: user.email,
+    name: user.name,
+    kind,
+    role: user.role,
+    status: accountStatus(store, user),
+    createdAt: new Date().toISOString(),
+  });
+  store.logins = store.logins.slice(0, 200);
+}
+
 function ensureOwner(store: DeskStore) {
   if (!Array.isArray(store.users)) store.users = [];
-  const email = ownerLogin.email.trim().toLowerCase();
-  const existing = store.users.find((user) => user.role === "owner" || user.email === email);
+  if (!Array.isArray(store.logins)) store.logins = [];
+  const email = ownerLogin.email;
+  store.users = store.users.filter((user) => user.role !== "owner" || user.email === email);
+  const existing = store.users.find((user) => user.role === "owner" && user.email === email);
+  if (!ownerLogin.password) return store;
   if (existing) {
-    const sameEmail = existing.email === email;
-    const samePass = verifyPassword(ownerLogin.password, existing.passwordHash);
-    if (sameEmail && samePass) return store;
+    if (verifyPassword(ownerLogin.password, existing.passwordHash)) return store;
     return {
       ...store,
       users: store.users.map((user) =>
         user.id === existing.id
-          ? {
-              ...user,
-              email,
-              passwordHash: samePass ? user.passwordHash : hashPassword(ownerLogin.password),
-            }
+          ? { ...user, email, passwordHash: hashPassword(ownerLogin.password) }
           : user,
       ),
     };
@@ -56,26 +76,18 @@ function ensureOwner(store: DeskStore) {
   return { ...store, users: [owner, ...store.users] };
 }
 
-function withDemo(store: DeskStore): DeskStore {
-  const empty =
-    store.passes.length === 0 && store.sales.length === 0 && store.promos.length === 0;
-  if (store.seeded && !empty) return ensureOwner(store);
-  const demo = demoDeskStore();
-  const demoIds = new Set([
-    ...demo.passes.map((item) => item.id),
-    ...demo.sales.map((item) => item.id),
-    ...demo.promos.map((item) => item.id),
-  ]);
-  return ensureOwner({
-    seeded: true,
-    users: store.users ?? [],
-    passes: [...demo.passes, ...store.passes.filter((item) => !demoIds.has(item.id))],
-    sales: [...demo.sales, ...store.sales.filter((item) => !demoIds.has(item.id))],
-    promos: [...demo.promos, ...store.promos.filter((item) => !demoIds.has(item.id))],
-    applications: store.applications ?? [],
-    tips: store.tips ?? [],
-    chats: store.chats ?? [],
-  });
+function emptyStore(): DeskStore {
+  return {
+    seeded: false,
+    users: [],
+    passes: [],
+    sales: [],
+    promos: [],
+    applications: [],
+    tips: [],
+    chats: [],
+    logins: [],
+  };
 }
 
 const storeDir = path.join(process.cwd(), "data");
@@ -130,14 +142,15 @@ async function readStore(): Promise<DeskStore> {
       applications: normalizeApplications(parsed.applications),
       tips: Array.isArray(parsed.tips) ? parsed.tips : [],
       chats: Array.isArray(parsed.chats) ? parsed.chats : [],
+      logins: Array.isArray(parsed.logins) ? parsed.logins : [],
     };
-    const next = withDemo(store);
+    const next = ensureOwner(store);
     if (next !== store) await writeStore(next);
     return next;
   } catch {
-    const demo = ensureOwner(demoDeskStore());
-    await writeStore(demo);
-    return demo;
+    const empty = ensureOwner(emptyStore());
+    await writeStore(empty);
+    return empty;
   }
 }
 
@@ -179,6 +192,8 @@ export function activePasses(store: DeskStore, now = Date.now()) {
 
 export function userHasPass(store: DeskStore, userId: string | null, now = Date.now()) {
   if (!userId) return false;
+  const user = store.users.find((item) => item.id === userId);
+  if (user?.role === "owner") return true;
   return store.passes.some((pass) => pass.userId === userId && isActivePass(pass, now));
 }
 

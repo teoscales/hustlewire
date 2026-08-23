@@ -103,6 +103,19 @@ export type WriterChatMessage = {
   createdAt: string;
 };
 
+export type LoginKind = "signup" | "login";
+
+export type LoginEvent = {
+  id: string;
+  userId: string;
+  email: string;
+  name: string;
+  kind: LoginKind;
+  role: AccountRole;
+  status: string;
+  createdAt: string;
+};
+
 export type DeskStore = {
   seeded?: boolean;
   users: Account[];
@@ -112,4 +125,5 @@ export type DeskStore = {
   applications: WriterApplication[];
   tips: SituationTip[];
   chats: WriterChatMessage[];
+  logins: LoginEvent[];
 };

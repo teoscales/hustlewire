@@ -8,6 +8,7 @@ import { parseStudio, type Studio } from "./studio";
 export async function hasDeskPass() {
   const account = await getAccount();
   if (!account) return false;
+  if (account.role === "owner") return true;
   const store = await getDeskStore();
   return userHasPass(store, account.id);
 }
@@ -15,12 +16,16 @@ export async function hasDeskPass() {
 export async function getDeskPassInfo() {
   const account = await getAccount();
   if (!account) return null;
+  if (account.role === "owner") {
+    return { expiresAt: null as string | null, cancelAtPeriodEnd: false, unlimited: true };
+  }
   const store = await getDeskStore();
   const pass = activePassForUser(store, account.id);
   if (!pass) return null;
   return {
-    expiresAt: pass.expiresAt,
+    expiresAt: pass.expiresAt as string | null,
     cancelAtPeriodEnd: Boolean(pass.cancelAtPeriodEnd),
+    unlimited: false,
   };
 }
 

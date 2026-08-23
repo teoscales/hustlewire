@@ -68,13 +68,9 @@ export function parseVideoLink(raw: string): VideoLink | null {
 }
 
 export function isEmail(value: string) {
-  const email = value.trim().toLowerCase();
-  if (email === "owner@hustlewire" || email === "owner@hustlewire.com") return true;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim().toLowerCase());
 }
 
 export function normalizeEmail(value: string) {
-  const email = value.trim().toLowerCase();
-  if (email === "owner@hustlewire") return "owner@hustlewire.com";
-  return email;
+  return value.trim().toLowerCase();
 }

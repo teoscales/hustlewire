@@ -76,7 +76,11 @@ export default async function PremiumPage() {
               Unlocked
             </p>
             <p className="mt-3 font-serif text-2xl text-white">You’re on the desk</p>
-            {pass ? (
+            {pass?.unlimited ? (
+              <p className="mt-2 text-sm leading-6 text-zinc-300">
+                Desk Pass is unlimited on this account.
+              </p>
+            ) : pass?.expiresAt ? (
               <div className="mt-2">
                 <PassRemaining expiresAt={pass.expiresAt} canceling={pass.cancelAtPeriodEnd} />
               </div>
@@ -159,10 +163,10 @@ export default async function PremiumPage() {
         </p>
       )}
 
-      {premium ? (
+      {premium && !pass?.unlimited ? (
         <div className="mt-12">
           <UnsubscribeSection
-            expiresAt={pass?.expiresAt}
+            expiresAt={pass?.expiresAt ?? undefined}
             canceling={pass?.cancelAtPeriodEnd}
           />
         </div>

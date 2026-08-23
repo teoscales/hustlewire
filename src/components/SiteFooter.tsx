@@ -55,6 +55,10 @@ export async function SiteFooter() {
         <Link href="/careers" className="transition hover:text-zinc-300">
           Careers
         </Link>
+        <span className="px-2">·</span>
+        <Link href="/privacy" className="transition hover:text-zinc-300">
+          Privacy policy
+        </Link>
       </p>
     </footer>
   );

@@ -4,7 +4,6 @@ import { SubscribeButton } from "@/components/SubscribeButton";
 import { UnsubscribeSection } from "@/components/UnsubscribeSection";
 import { PassRemaining } from "@/components/PassRemaining";
 import { getAccount } from "@/lib/account";
-import { ownerLogin } from "@/lib/office-auth";
 import { getDeskPassInfo, hasDeskPass } from "@/lib/pass";
 import { deskPass } from "@/lib/premium";
 import { btn } from "@/lib/ui";
@@ -53,7 +52,9 @@ export default async function AccountPage({
               {account.role === "owner" ? "Owner" : "Signed in"}
             </p>
             <p className="mt-2 font-serif text-2xl text-white">{account.email}</p>
-            {pass ? (
+            {pass?.unlimited ? (
+              <p className="mt-2 text-sm text-zinc-300">Desk Pass is unlimited on this account.</p>
+            ) : pass?.expiresAt ? (
               <div className="mt-2">
                 <PassRemaining expiresAt={pass.expiresAt} canceling={pass.cancelAtPeriodEnd} />
               </div>
@@ -84,9 +85,9 @@ export default async function AccountPage({
               <SignOutButton />
             </div>
           </section>
-          {premium ? (
+          {premium && !pass?.unlimited ? (
             <UnsubscribeSection
-              expiresAt={pass?.expiresAt}
+              expiresAt={pass?.expiresAt ?? undefined}
               canceling={pass?.cancelAtPeriodEnd}
             />
           ) : null}
@@ -99,9 +100,6 @@ export default async function AccountPage({
             </p>
           ) : null}
           <AccountForm next={next} unlock={unlock} />
-          <p className="mt-6 text-xs leading-5 text-zinc-600">
-            Owner login is {ownerLogin.email} · {ownerLogin.password}
-          </p>
         </>
       )}
     </main>

@@ -24,6 +24,9 @@ export default async function OfficePage() {
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, 10);
   const live = activePasses(store).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const logins = [...(store.logins ?? [])]
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, 50);
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -35,7 +38,6 @@ export default async function OfficePage() {
           <h1 className="mt-3 font-serif text-4xl text-white sm:text-5xl">Office</h1>
           <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-400">
             Sales, who has Desk Pass, promo videos, and writer applications.
-            {store.seeded ? " Demo numbers are loaded so the desk is not empty." : ""}
           </p>
         </div>
         <SignOutButton />
@@ -63,6 +65,33 @@ export default async function OfficePage() {
           <p className="mt-2 text-sm text-zinc-400">{stats.approvedPromos} approved</p>
         </section>
       </div>
+
+      <section className="mt-10 rounded-3xl border-2 border-[#d8ff3c] bg-[#d8ff3c]/10 p-6">
+        <h2 className="font-serif text-2xl text-white">New logins</h2>
+        <p className="mt-1 text-sm text-zinc-400">
+          Every new account and sign-in. Email and status only.
+        </p>
+        {logins.length === 0 ? (
+          <p className="mt-3 text-sm text-zinc-500">Nobody has signed in yet.</p>
+        ) : (
+          <ul className="mt-4 divide-y divide-white/10 text-sm">
+            {logins.map((item) => (
+              <li key={item.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
+                <div>
+                  <p className="text-white">{item.email}</p>
+                  <p className="mt-1 text-xs text-zinc-500">
+                    {item.name} · {item.kind === "signup" ? "New account" : "Signed in"} ·{" "}
+                    {formatWhen(item.createdAt)}
+                  </p>
+                </div>
+                <span className="rounded-full bg-zinc-950 px-3 py-1 text-xs font-semibold text-[#d8ff3c]">
+                  {item.status}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <section className="mt-10 rounded-3xl border border-white/10 bg-zinc-900/40 p-6">
         <h2 className="font-serif text-2xl text-white">Recent paid unlocks</h2>

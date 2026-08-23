@@ -23,31 +23,41 @@ export default async function UnsubscribePage() {
       </h1>
       <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-400">
         {premium
-          ? pass?.cancelAtPeriodEnd
+          ? pass?.unlimited
+            ? "Owner Desk Pass does not expire. Nothing to cancel."
+            : pass?.cancelAtPeriodEnd
             ? "You already unsubscribed. The desk stays until the month you paid for ends."
             : `You’re on ${deskPass.name}. Cancel here and Stripe stops charging. You keep the desk until this month ends.`
           : "You’re not on Desk Pass. Nothing to cancel."}
       </p>
 
-      {premium ? (
+      {premium && !pass?.unlimited ? (
         <div className="mt-10">
           <UnsubscribeSection
-            expiresAt={pass?.expiresAt}
+            expiresAt={pass?.expiresAt ?? undefined}
             canceling={pass?.cancelAtPeriodEnd}
           />
         </div>
       ) : (
         <section className="mt-10 rounded-3xl border border-white/10 bg-zinc-900/40 p-6">
           <p className="text-sm leading-6 text-zinc-300">
-            No active pass on this browser. You still get the wire and the first three moves.
+            {pass?.unlimited
+              ? "This owner account keeps Desk Pass. There is nothing to cancel."
+              : "No active pass on this browser. You still get the wire and the first three moves."}
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Link href="/" className={btn.primary}>
               Back to the wire
             </Link>
-            <Link href="/premium" className={btn.ghost}>
-              See Desk Pass
-            </Link>
+            {pass?.unlimited ? (
+              <Link href="/my-desk" className={btn.ghost}>
+                Open My Desk
+              </Link>
+            ) : (
+              <Link href="/premium" className={btn.ghost}>
+                See Desk Pass
+              </Link>
+            )}
           </div>
         </section>
       )}

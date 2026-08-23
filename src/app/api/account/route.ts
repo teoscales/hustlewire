@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getDeskStore, updateDeskStore } from "@/lib/desk-store";
+import { getDeskStore, recordLogin, updateDeskStore } from "@/lib/desk-store";
 import type { Account } from "@/lib/desk-types";
 import { ACCOUNT_COOKIE, MONTH_SECONDS, accountCookie } from "@/lib/ids";
 import { toPublicAccount } from "@/lib/account";
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
     name?: string;
     email?: string;
     password?: string;
+    privacy?: boolean;
   };
   const email = normalizeEmail(body.email ?? "");
   const password = body.password ?? "";
@@ -50,6 +51,9 @@ export async function POST(request: Request) {
     if (name.length < 2) {
       return NextResponse.json({ error: "Add your name" }, { status: 400 });
     }
+    if (!body.privacy) {
+      return NextResponse.json({ error: "Agree to the privacy policy to create an account" }, { status: 400 });
+    }
     const result = await updateDeskStore((store) => {
       if (store.users.some((user) => user.email === email)) {
         return { error: "That email already has an account" as const };
@@ -63,6 +67,7 @@ export async function POST(request: Request) {
         createdAt: new Date().toISOString(),
       };
       store.users.push(account);
+      recordLogin(store, account, "signup");
       return { account };
     });
     if ("error" in result) {
@@ -71,14 +76,18 @@ export async function POST(request: Request) {
     return sessionResponse(result.account);
   }
 
-  const store = await getDeskStore();
-  const account = store.users.find(
-    (user) => user.email === email || (email === "owner@hustlewire.com" && user.role === "owner"),
-  );
-  if (!account || !verifyPassword(password, account.passwordHash)) {
-    return NextResponse.json({ error: "Wrong email or password" }, { status: 401 });
+  const result = await updateDeskStore((store) => {
+    const account = store.users.find((user) => user.email === email);
+    if (!account || !verifyPassword(password, account.passwordHash)) {
+      return { error: "Wrong email or password" as const };
+    }
+    recordLogin(store, account, "login");
+    return { account };
+  });
+  if ("error" in result) {
+    return NextResponse.json({ error: result.error }, { status: 401 });
   }
-  return sessionResponse(account);
+  return sessionResponse(result.account);
 }
 
 export async function DELETE() {
