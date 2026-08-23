@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
+import { blobConfigured, blobGetDesk, blobSetDesk } from "./desk-blob";
 import { kvConfigured, kvGetDesk, kvSetDesk } from "./desk-kv";
 import { ownerLogins } from "./office-auth";
 import { hashPassword, newDeskId, verifyPassword } from "./password";
@@ -31,6 +32,81 @@ export function accountStatus(store: DeskStore, user: Account) {
   if (writer?.status === "approved") return "Writer";
   if (writer?.status === "pending") return "Writer pending";
   return "Free";
+}
+
+export function officeLogins(store: DeskStore) {
+  const logins = [...(store.logins ?? [])];
+  const seen = new Set(
+    logins.filter((item) => item.kind === "signup").map((item) => item.email),
+  );
+  for (const user of store.users) {
+    if (user.role === "owner" || seen.has(user.email)) continue;
+    logins.push({
+      id: `signup-${user.id}`,
+      userId: user.id,
+      email: user.email,
+      name: user.name,
+      kind: "signup",
+      role: user.role,
+      status: accountStatus(store, user),
+      createdAt: user.createdAt,
+    });
+  }
+  return logins.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 50);
+}
+
+function mergeById<T extends { id: string }>(left: T[], right: T[]) {
+  const map = new Map<string, T>();
+  for (const item of left) map.set(item.id, item);
+  for (const item of right) map.set(item.id, item);
+  return [...map.values()];
+}
+
+function mergeUsers(left: Account[], right: Account[]) {
+  const map = new Map<string, Account>();
+  for (const user of [...left, ...right]) {
+    const prev = map.get(user.email);
+    if (!prev) {
+      map.set(user.email, user);
+      continue;
+    }
+    map.set(user.email, {
+      ...prev,
+      ...user,
+      role: prev.role === "owner" || user.role === "owner" ? "owner" : user.role,
+      createdAt: prev.createdAt < user.createdAt ? prev.createdAt : user.createdAt,
+    });
+  }
+  return [...map.values()];
+}
+
+function mergeStores(remote: DeskStore, local: DeskStore): DeskStore {
+  const logins = mergeById(remote.logins ?? [], local.logins ?? []).sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt),
+  );
+  return {
+    seeded: Boolean(local.seeded || remote.seeded),
+    users: mergeUsers(remote.users, local.users),
+    passes: mergeById(remote.passes, local.passes),
+    sales: mergeById(remote.sales, local.sales),
+    promos: mergeById(remote.promos, local.promos),
+    applications: mergeById(remote.applications, local.applications),
+    tips: mergeById(remote.tips, local.tips),
+    chats: mergeById(remote.chats, local.chats),
+    logins: logins.slice(0, 200),
+  };
+}
+
+async function readRemoteStore() {
+  if (blobConfigured()) {
+    const raw = await blobGetDesk();
+    if (raw) return parseStore(raw);
+  }
+  if (kvConfigured()) {
+    const raw = await kvGetDesk();
+    if (raw) return parseStore(raw);
+  }
+  return null;
 }
 
 export function recordLogin(store: DeskStore, user: Account, kind: "signup" | "login") {
@@ -190,20 +266,17 @@ function parseStore(raw: string): DeskStore {
 }
 
 async function readStore(): Promise<DeskStore> {
-  if (kvConfigured()) {
-    const raw = await kvGetDesk();
-    if (raw) {
-      const store = parseStore(raw);
-      const next = ensureOwner(store);
-      if (next !== store) await writeStore(next);
-      return next;
-    }
+  const remote = await readRemoteStore();
+  if (remote) {
+    const next = ensureOwner(remote);
+    if (next !== remote) await writeStore(next);
+    return next;
   }
   for (const file of readPaths()) {
     try {
       const store = parseStore(await readFile(file, "utf8"));
       const next = ensureOwner(store);
-      if (next !== store) await writeStore(next);
+      await writeStore(next);
       return next;
     } catch {
       // try the next path
@@ -215,7 +288,17 @@ async function readStore(): Promise<DeskStore> {
 }
 
 async function writeStore(store: DeskStore) {
-  const body = JSON.stringify(store, null, 2);
+  let next = store;
+  const remote = await readRemoteStore();
+  if (remote) next = ensureOwner(mergeStores(remote, store));
+  const body = JSON.stringify(next, null, 2);
+  if (blobConfigured()) {
+    try {
+      await blobSetDesk(body);
+    } catch {
+      // Keep local cache if blob is down.
+    }
+  }
   if (kvConfigured()) await kvSetDesk(body);
   for (const file of writePaths()) {
     try {

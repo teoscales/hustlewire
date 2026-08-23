@@ -3,7 +3,7 @@ import { SignOutButton } from "@/components/AccountForm";
 import { ReviewList } from "@/components/ReviewList";
 import { WriterApplications, SituationTips } from "@/components/WriterApplications";
 import { OwnerChats } from "@/components/WriterChat";
-import { activePasses, getDeskStore, officeStats } from "@/lib/desk-store";
+import { activePasses, getDeskStore, officeLogins, officeStats } from "@/lib/desk-store";
 import { formatMoney, formatWhen } from "@/lib/format";
 import { isOwner } from "@/lib/account";
 import { deskPass } from "@/lib/premium";
@@ -24,9 +24,7 @@ export default async function OfficePage() {
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, 10);
   const live = activePasses(store).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  const logins = [...(store.logins ?? [])]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 50);
+  const logins = officeLogins(store);
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -69,7 +67,7 @@ export default async function OfficePage() {
       <section className="mt-10 rounded-3xl border-2 border-[#d8ff3c] bg-[#d8ff3c]/10 p-6">
         <h2 className="font-serif text-2xl text-white">New logins</h2>
         <p className="mt-1 text-sm text-zinc-400">
-          Every new account and sign-in. Email and status only.
+          Every new account and sign-in, kept in one shared list.
         </p>
         {logins.length === 0 ? (
           <p className="mt-3 text-sm text-zinc-500">Nobody has signed in yet.</p>
