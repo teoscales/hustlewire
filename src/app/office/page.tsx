@@ -3,11 +3,13 @@ import { SignOutButton } from "@/components/AccountForm";
 import { ReviewList } from "@/components/ReviewList";
 import { WriterApplications, SituationTips } from "@/components/WriterApplications";
 import { OwnerChats } from "@/components/WriterChat";
+import { WireDesk } from "@/components/WireDesk";
 import { activePasses, getDeskStore, officeLogins, officeStats } from "@/lib/desk-store";
 import { formatMoney, formatWhen } from "@/lib/format";
 import { isOwner } from "@/lib/account";
 import { deskPass } from "@/lib/premium";
 import { writerThreads } from "@/lib/writers";
+import { articleToDraft } from "@/lib/wire";
 
 export const dynamic = "force-dynamic";
 
@@ -35,11 +37,27 @@ export default async function OfficePage() {
           </p>
           <h1 className="mt-3 font-serif text-4xl text-white sm:text-5xl">Office</h1>
           <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-400">
-            Sales, who has Desk Pass, promo videos, and writer applications.
+            Sales, Desk Pass, new logins, and the wire. Publish a story and it goes live.
           </p>
         </div>
         <SignOutButton />
       </div>
+
+      <WireDesk
+        initial={(store.stories ?? [])
+          .slice()
+          .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+          .map((story) => ({
+            id: story.id,
+            status: story.status,
+            updatedAt: story.updatedAt,
+            publishedAt: story.publishedAt,
+            slug: story.article.slug,
+            title: story.article.title,
+            featured: Boolean(story.article.featured),
+            draft: articleToDraft(story.article),
+          }))}
+      />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         <section className="rounded-3xl border-2 border-[#d8ff3c] bg-[#d8ff3c]/10 p-6">

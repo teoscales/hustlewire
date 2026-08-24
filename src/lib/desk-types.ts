@@ -126,4 +126,16 @@ export type DeskStore = {
   tips: SituationTip[];
   chats: WriterChatMessage[];
   logins: LoginEvent[];
+  stories: WireStory[];
+};
+
+export type WireStatus = "draft" | "live";
+
+export type WireStory = {
+  id: string;
+  status: WireStatus;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string | null;
+  article: import("./types").Article;
 };

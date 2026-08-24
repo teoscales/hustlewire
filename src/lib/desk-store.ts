@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { blobConfigured, blobGetDesk, blobSetDesk } from "./desk-blob";
 import { kvConfigured, kvGetDesk, kvSetDesk } from "./desk-kv";
+import type { WireStory } from "./desk-types";
 import { ownerLogins } from "./office-auth";
 import { hashPassword, newDeskId, verifyPassword } from "./password";
 import { deskPass } from "./premium";
@@ -94,6 +95,7 @@ function mergeStores(remote: DeskStore, local: DeskStore): DeskStore {
     tips: mergeById(remote.tips, local.tips),
     chats: mergeById(remote.chats, local.chats),
     logins: logins.slice(0, 200),
+    stories: mergeById(remote.stories ?? [], local.stories ?? []),
   };
 }
 
@@ -199,6 +201,7 @@ function emptyStore(): DeskStore {
     tips: [],
     chats: [],
     logins: [],
+    stories: [],
   };
 }
 
@@ -262,7 +265,28 @@ function parseStore(raw: string): DeskStore {
     tips: Array.isArray(parsed.tips) ? parsed.tips : [],
     chats: Array.isArray(parsed.chats) ? parsed.chats : [],
     logins: Array.isArray(parsed.logins) ? parsed.logins : [],
+    stories: normalizeStories(parsed.stories),
   };
+}
+
+function normalizeStories(raw: unknown): WireStory[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const row = item as Partial<WireStory> & { article?: { slug?: string; title?: string } };
+    if (!row.id || !row.article?.slug || !row.article?.title) return [];
+    const status = row.status === "live" ? "live" : "draft";
+    return [
+      {
+        id: row.id,
+        status,
+        createdAt: row.createdAt ?? new Date().toISOString(),
+        updatedAt: row.updatedAt ?? row.createdAt ?? new Date().toISOString(),
+        publishedAt: row.publishedAt ?? (status === "live" ? row.createdAt ?? null : null),
+        article: row.article as WireStory["article"],
+      },
+    ];
+  });
 }
 
 async function readStore(): Promise<DeskStore> {

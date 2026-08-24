@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { articles } from "@/lib/articles";
+import { listArticles } from "@/lib/articles";
 
-export function Ticker() {
+export async function Ticker() {
+  const articles = await listArticles();
   const items = articles.map((article) => ({
     slug: article.slug,
     tick: article.marketTick ?? article.kicker.toUpperCase(),

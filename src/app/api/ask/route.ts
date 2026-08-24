@@ -10,7 +10,11 @@ export async function POST(request: Request) {
     sample?: boolean;
   };
   const question = body.question?.trim() ?? "";
-  const article = isDemoStory(body.slug ?? "") ? getDemoArticle() : body.slug ? getArticle(body.slug) : null;
+  const article = isDemoStory(body.slug ?? "")
+    ? getDemoArticle()
+    : body.slug
+      ? await getArticle(body.slug)
+      : null;
   const sample = Boolean(body.sample) && Boolean(article && isDemoStory(article.slug));
 
   if (!(await hasDeskPass()) && !sample) {

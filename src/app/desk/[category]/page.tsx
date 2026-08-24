@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { StoryCard } from "@/components/StoryCard";
 import { categoryIds, getByCategory, getCategory, isCategoryId } from "@/lib/articles";
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return categoryIds.map((category) => ({ category }));
 }
@@ -20,7 +22,7 @@ export default async function DeskPage({ params }: PageProps<"/desk/[category]">
   if (!isCategoryId(category)) notFound();
 
   const desk = getCategory(category);
-  const stories = getByCategory(category);
+  const stories = await getByCategory(category);
   if (!desk) notFound();
 
   return (

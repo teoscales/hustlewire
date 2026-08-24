@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps<"/story/[slug]">) {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = await getArticle(slug);
   if (!article) return { title: "Story" };
   return {
     title: article.title,
@@ -19,11 +19,11 @@ export async function generateMetadata({ params }: PageProps<"/story/[slug]">) {
 
 export default async function StoryPage({ params }: PageProps<"/story/[slug]">) {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = await getArticle(slug);
   if (!article) notFound();
 
   const desk = categories.find((category) => category.id === article.category);
-  const related = getRelated(article.slug);
+  const related = await getRelated(article.slug);
   const premium = await hasDeskPass();
   const studio = premium ? await getStudio() : null;
   const alreadySaved = Boolean(studio?.ideas.some((idea) => idea.storySlug === article.slug));

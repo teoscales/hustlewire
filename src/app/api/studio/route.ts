@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getArticle } from "@/lib/articles";
+import { getArticle, listArticles } from "@/lib/articles";
 import { hasDeskPass } from "@/lib/pass";
 import { STUDIO_COOKIE } from "@/lib/premium";
 import { mergePlaybookGoals, newGoal, newIdea, parseStudio, type Studio } from "@/lib/studio";
@@ -34,9 +34,10 @@ export async function PUT(request: Request) {
   }
   const body = (await request.json()) as Studio;
   const studio = parseStudio(JSON.stringify(body));
+  const known = new Set((await listArticles()).map((article) => article.slug));
   studio.ideas = studio.ideas.map((idea) => ({
     ...idea,
-    storySlug: idea.storySlug && getArticle(idea.storySlug) ? idea.storySlug : null,
+    storySlug: idea.storySlug && known.has(idea.storySlug) ? idea.storySlug : null,
   }));
   const res = NextResponse.json(studio);
   save(res, studio);
@@ -60,7 +61,7 @@ export async function POST(request: Request) {
     return res;
   }
 
-  const article = body.storySlug ? getArticle(body.storySlug) : null;
+  const article = body.storySlug ? await getArticle(body.storySlug) : null;
   if (!article) {
     return NextResponse.json({ error: "Story not on the wire" }, { status: 404 });
   }

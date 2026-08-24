@@ -1,6 +1,8 @@
-import { articles as data } from "./article-data";
+import { articles as catalog } from "./article-data";
+import { getDeskStore } from "./desk-store";
 import { demoArticle, demoStorySlug } from "./demo-story";
 import { categoryIds, type Article, type Category, type CategoryId } from "./types";
+import { liveArticles } from "./wire";
 
 export { categoryIds };
 export { demoArticle, demoStorySlug };
@@ -12,10 +14,25 @@ export const categories: Category[] = [
   { id: "street", label: "Street", blurb: "Plays you can start before Monday." },
 ];
 
-export const articles: Article[] = data;
+export const stockArticles: Article[] = catalog;
 
-/** Live masthead clock: seconds since the newest story landed on the wire. */
-export function getNewsUpdatedAt() {
+export async function listArticles() {
+  try {
+    const store = await getDeskStore();
+    const live = liveArticles(store.stories);
+    const liveSlugs = new Set(live.map((article) => article.slug));
+    const liveLead = live.some((article) => article.featured);
+    const stock = catalog
+      .filter((article) => !liveSlugs.has(article.slug))
+      .map((article) => (liveLead ? { ...article, featured: false } : article));
+    return [...live, ...stock];
+  } catch {
+    return [...catalog];
+  }
+}
+
+export async function getNewsUpdatedAt() {
+  const articles = await listArticles();
   let latest = 0;
   for (const article of articles) {
     const stamp = Date.parse(article.publishedAt);
@@ -24,11 +41,13 @@ export function getNewsUpdatedAt() {
   return new Date(latest || Date.now()).toISOString();
 }
 
-export function getArticle(slug: string) {
+export async function getArticle(slug: string) {
+  const articles = await listArticles();
   return articles.find((article) => article.slug === slug);
 }
 
-export function getFeatured() {
+export async function getFeatured() {
+  const articles = await listArticles();
   return articles.find((article) => article.featured) ?? articles[0];
 }
 
@@ -40,7 +59,8 @@ export function isDemoStory(slug: string) {
   return slug === demoStorySlug;
 }
 
-export function getByCategory(category: CategoryId) {
+export async function getByCategory(category: CategoryId) {
+  const articles = await listArticles();
   return articles.filter((article) => article.category === category);
 }
 
@@ -52,8 +72,9 @@ export function isCategoryId(value: string): value is CategoryId {
   return (categoryIds as readonly string[]).includes(value);
 }
 
-export function getRelated(slug: string, limit = 3) {
-  const current = getArticle(slug);
+export async function getRelated(slug: string, limit = 3) {
+  const articles = await listArticles();
+  const current = articles.find((article) => article.slug === slug);
   if (!current) return articles.slice(0, limit);
 
   const sameDesk = articles.filter(

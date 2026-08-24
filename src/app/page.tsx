@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { StoryCard } from "@/components/StoryCard";
-import { articles, categories, getFeatured } from "@/lib/articles";
+import { categories, getFeatured, listArticles } from "@/lib/articles";
 import { hasDeskPass } from "@/lib/pass";
 import { btn } from "@/lib/ui";
 
 export default async function Home() {
-  const featured = getFeatured();
+  const featured = await getFeatured();
+  const articles = await listArticles();
   const rest = articles.filter((article) => article.slug !== featured.slug);
   const tape = articles.filter((article) => article.marketTick);
   const premium = await hasDeskPass();

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { articles } from "@/lib/articles";
+import { listArticles } from "@/lib/articles";
 import { getAccount } from "@/lib/account";
 import { getDeskPassInfo, getStudio, hasDeskPass } from "@/lib/pass";
 import { IdeaSlotBoard } from "@/components/IdeaSlotBoard";
@@ -20,6 +20,7 @@ export default async function MyDeskPage() {
   const pass = await getDeskPassInfo();
 
   const studio = await getStudio();
+  const articles = await listArticles();
   const stories = articles.map((article) => ({
     slug: article.slug,
     title: article.title,
