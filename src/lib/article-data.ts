@@ -10,9 +10,11 @@ export const articles: Article[] = [
     kicker: "The flex",
     title: "Andrew Tate rented the $14m cars and the $50m yacht. Sell the mock, not the hide.",
     dek: "People called it embarrassing. The claimed reason is seizure. You recap that headline. You do not teach anyone how to keep assets from a court.",
-    publishedAt: "2026-08-26T20:50:00.000Z",
+    publishedAt: "2026-08-26T22:00:00.000Z",
     readMinutes: 4,
     featured: true,
+    markImage: "/marks/andrew-tate-home.png",
+    storyMarkImage: "/marks/andrew-tate-story.png",
     marketTick: "RENT",
     news: {
       headline:

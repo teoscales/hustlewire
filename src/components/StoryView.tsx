@@ -30,6 +30,7 @@ export function StoryView({
             code={article.code}
             accent={article.accent}
             ink={article.ink}
+            markImage={article.storyMarkImage ?? article.markImage}
             className="min-h-[12rem] sm:min-h-[15rem]"
           />
           <div className="mt-6 flex flex-wrap items-center gap-2 text-sm text-zinc-500">

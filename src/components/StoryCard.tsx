@@ -26,7 +26,8 @@ export function StoryCard({ article, featured = false }: StoryCardProps) {
         code={article.code}
         accent={article.accent}
         ink={article.ink}
-        className={featured ? "min-h-[14rem] sm:w-[42%] sm:min-h-[18rem]" : "min-h-[9.5rem]"}
+        markImage={article.markImage}
+        className={featured ? "min-h-[14rem] sm:w-[42%] sm:min-h-[18rem] sm:self-stretch" : "min-h-[9.5rem]"}
       />
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">

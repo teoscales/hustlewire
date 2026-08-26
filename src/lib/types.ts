@@ -46,6 +46,8 @@ export type Article = {
   readMinutes: number;
   featured?: boolean;
   marketTick?: string;
+  markImage?: string;
+  storyMarkImage?: string;
   news: {
     headline: string;
     body: string[];
