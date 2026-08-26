@@ -2,6 +2,146 @@ import type { Article } from "./types";
 
 export const articles: Article[] = [
   {
+    slug: "andrew-tate-rented-cars-yacht",
+    code: "AT",
+    accent: "#c9a227",
+    ink: "#fff6e0",
+    category: "street",
+    kicker: "The flex",
+    title: "Andrew Tate rented the $14m cars and the $50m yacht. Sell the mock, not the hide.",
+    dek: "People called it embarrassing. The claimed reason is seizure. You recap that headline. You do not teach anyone how to keep assets from a court.",
+    publishedAt: "2026-08-26T20:50:00.000Z",
+    readMinutes: 4,
+    featured: true,
+    marketTick: "RENT",
+    news: {
+      headline:
+        "Andrew Tate’s $14 million car collection and $50 million yacht are rented. The timeline called it a fall-off. The claimed play is simpler: if it is not his, it is harder to seize.",
+      body: [
+        "The internet saw a $14 million fleet and a $50 million yacht and heard rent, not own. That is catnip. Screenshots, ratio, “this is what broke looks like.” The mock is loud because the numbers are loud. A rented Bugatti still films like a Bugatti. A rented yacht still looks like a yacht. The comments treat the lease as the L.",
+        "The counter-read is the story. Andrew Tate has spent years in court fights, asset talk, and government heat. The claim around these rentals is not “I cannot afford it.” It is “if the state comes for the bag, they cannot take what is not titled to me.” People hear embarrassment. The pitch is control. Rent the image. Do not park the title where a freeze can sit.",
+        "That is news. It is not a how-to. You are not a lawyer. You are not his clerk. Teaching someone how to hide cars, boats, or cash from a court is the crime-adjacent desk. Do not do it. Do not sell “Tate seizure-proof your garage” notes. Do not post fake paperwork. The legal lane is the headline itself: a public figure rented the flex, the crowd called it broke, the claimed reason is seizure.",
+        "What actually moves: a 40-second recap that says both things in one breath. “They rented a $14m car lot and a $50m yacht. People said that is embarrassing. The claimed reason is so the government cannot seize them.” Then you stop. No structure chart. No “here is how you lease around a freeze.” CTA is the explanation, not a clinic. The comments will ask how to copy it. That ask is the trap.",
+      ],
+    },
+    play: {
+      headline: "Recap the rental. Name the seizure claim. Do not teach the hide.",
+      teaser: "Cover the mock and the motive as news. Never sell a seizure workaround.",
+    },
+    playbook: {
+      thesis:
+        "Andrew Tate rented a reported $14 million car collection and $50 million yacht. The crowd called it embarrassing. The claimed reason is the government cannot seize what he does not own. You sell that recap. You do not teach asset hiding, fake leases, or courtroom workarounds.",
+      capital: "$0",
+      speed: "Tonight to first recap. 48 hours to see if you stayed in the news lane.",
+      risk: "high",
+      briefing: [
+        "Illegal / kill-the-desk: how-to videos on hiding cars, boats, or cash from a court or tax office. Fake lease templates. “Do this so they cannot seize your stuff.” Impersonating Andrew Tate. Selling a seizure-proof lifestyle course. That is not coverage. That is a clinic for people who want to dodge the state.",
+        "Legal lane: your face, public posts, the reported numbers, a plain-language “rent vs own, and why people think it looks broke.” Say it is a claim, not legal advice. No paperwork. No jurisdiction tricks.",
+        "The product is a 40-second “they rented the flex so it is harder to grab” recap. Not a how-to. Not a defense of the man. Not a roast that never names the seizure read.",
+        "If you cannot make the video without telling people how to copy the structure, you do not have a desk. You have a loophole channel.",
+      ],
+      sequence: [
+        {
+          title: "Write the story from public posts. Do not play lawyer.",
+          window: "Hour 1",
+          body: "Six bullets: Andrew Tate, $14m cars rented, $50m yacht rented, the crowd called it embarrassing, the claimed reason is seizure, you will not teach a copy. Separate rumor, confirmed report, and “this is the spin.” If a bullet starts with how to title an asset, delete it.",
+        },
+        {
+          title: "One lane. Recap the headline. Kill the clinic.",
+          window: "Hour 1",
+          body: "You are not “Tate’s accountant.” You are not “here is how rich men beat freezes.” You are explaining why a rental can look like a fall-off and still be sold as protection. Circle that. If you want a visual, a public photo and the words rented vs owned. No lease forms in the frame.",
+        },
+        {
+          title: "Film three recaps tonight. Same rule in every one.",
+          window: "Night 1",
+          body: "Vertical. Hook: “Andrew Tate’s $14m cars and $50m yacht are rented. People said that is embarrassing. Here is the claimed reason.” Three facts. One “this is not legal advice.” CTA is “don’t copy a court strategy off TikTok,” not “template in bio.” Post one now.",
+        },
+        {
+          title: "Pin the rule before comments ask how to hide a car.",
+          window: "Night 1",
+          body: "Bio: “Recaps. Not legal advice. I don’t teach people how to hide assets.” First comment you pin: you will delete how-to questions. If you leave a seizure workaround in your comments, you became the clinic.",
+        },
+        {
+          title: "The mock-plus-motive recap is the product, not a hide kit.",
+          window: "Days 2–4",
+          body: "Day 2: “Why the internet called rented cars broke.” Day 3: “Rent vs own when the state is in the story, as news, not as a plan.” Day 4: “What you will not teach on this headline.” Same hour. Delete any post that slid into instructions.",
+        },
+        {
+          title: "If they ask how to copy it, that is the test.",
+          window: "All week",
+          body: "Reply once, in public: you recap headlines, you do not give asset-hiding advice. Then delete repeats. Anyone DMing “how do I lease so they cannot take my cars” gets ignored. You are not their lawyer.",
+        },
+        {
+          title: "Money only after clean posts, and never from a hide course.",
+          window: "Days 7–14",
+          body: "Ads on recaps when the platform allows. Super Thanks. A $5 note: “rented flex vs owned flex, how the mock and the seizure claim both travel,” text only, no forms, no jurisdictions. You do not sell a Tate-style protection kit. You do not take a cut of anyone’s lease.",
+        },
+      ],
+      numbers: [
+        { label: "First videos", value: "3 tonight", note: "News recap. Zero how-to. Zero fake legal advice." },
+        { label: "Spend copying the rentals", value: "$0", note: "You are covering a headline, not leasing a yacht." },
+        { label: "How-to lines in captions", value: "0", note: "If it is a workaround, you are the clinic." },
+        { label: "Note later", value: "$5", note: "Mock vs seizure claim. Text. No templates." },
+      ],
+      kit: [
+        "Phone, mic, light you already own",
+        "Public news posts, not court files you should not have",
+        "Notes: rumor vs reported vs “this is the spin”",
+        "A pinned comment that bans how-to questions",
+        "A written rule: recap the rental, do not teach the hide",
+      ],
+      scripts: [
+        {
+          where: "Recap open",
+          text: "Andrew Tate’s $14 million cars and $50 million yacht are rented. People called that embarrassing. The claimed reason is so the government cannot seize them. I’m not teaching you how to do it. Forty seconds on what that headline is.",
+        },
+        {
+          where: "Bio",
+          text: "Recaps on the Tate rental story. Not legal advice. I don’t teach asset hiding and I don’t send templates.",
+        },
+        {
+          where: "Comment asking how to copy the leases",
+          text: "I don’t post that. Recaps stay on the channel. If you need a lawyer, hire one. I am not yours.",
+        },
+      ],
+      pitfalls: [
+        "A “how to rent so they cannot seize your stuff” explainer.",
+        "Fake lease PDFs in the video.",
+        "Calling it legal advice.",
+        "A $49 “Tate protection” note that is a how-to.",
+        "Impersonating Andrew Tate or his companies.",
+        "Cheering a freeze dodge like you are on the defense team.",
+      ],
+      week: [
+        { day: "Tonight", move: "Six bullets. Three recaps. Post one. Pin the no-how-to rule." },
+        { day: "Mon", move: "Mock-vs-motive recap. Delete copycat comments." },
+        { day: "Tue–Wed", move: "Daily. Same hour. Still no templates." },
+        { day: "Thu", move: "Kill any clip that slid into instructions." },
+        { day: "Fri", move: "If 10 clean posts exist, draft the $5 note. Still no forms." },
+        { day: "Sat", move: "Decide: you covered a headline, or you taught a hide." },
+      ],
+      kill: [
+        "You needed a how-to to get views. Stop. You are a loophole channel.",
+        "You posted a template and called it journalism. Take it down.",
+        "A platform strike or a letter. Do not re-upload the clinic version muted.",
+        "Your comments are only “how do I copy this.” You built a hide help desk. Close it.",
+      ],
+      suggestedGoals: [
+        "Write the story in six bullets with no how-to on the page",
+        "Post three recaps with zero templates and zero legal advice",
+        "Pin a no-how-to rule and enforce it",
+        "Ignore the first “how do I hide my cars” DM",
+        "Ship a $5 text note only after 10 clean posts",
+      ],
+      questions: [
+        "Is it embarrassing that Andrew Tate rented the cars and the yacht?",
+        "What is the claimed reason the government cannot seize them?",
+        "How do I make money on this without teaching a hide?",
+        "What do I say when comments only want the how-to?",
+      ],
+    },
+  },
+  {
     slug: "cyberleek-gta6-memecoin",
     code: "CL",
     accent: "#7c5cff",
@@ -12,7 +152,7 @@ export const articles: Article[] = [
     dek: "The group dumping GTA 6 clips just stood up a coin. The leak is still not yours to sell. Their token is not a gift. It is how they cash the crowd.",
     publishedAt: "2026-08-23T14:13:00.000Z",
     readMinutes: 4,
-    featured: true,
+    featured: false,
     marketTick: "SOL +1.1%",
     news: {
       headline:
