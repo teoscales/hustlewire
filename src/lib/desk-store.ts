@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { blobConfigured, blobGetDesk, blobSetDesk } from "./desk-blob";
 import { kvConfigured, kvGetDesk, kvSetDesk } from "./desk-kv";
+import { applyDeskGifts } from "./desk-gifts";
 import type { WireStory } from "./desk-types";
 import { ownerLogins } from "./office-auth";
 import { hashPassword, newDeskId, verifyPassword } from "./password";
@@ -96,6 +97,8 @@ function mergeStores(remote: DeskStore, local: DeskStore): DeskStore {
     chats: mergeById(remote.chats, local.chats),
     logins: logins.slice(0, 200),
     stories: mergeById(remote.stories ?? [], local.stories ?? []),
+    gifts: mergeById(remote.gifts ?? [], local.gifts ?? []),
+    announcements: mergeById(remote.announcements ?? [], local.announcements ?? []),
   };
 }
 
@@ -202,6 +205,8 @@ function emptyStore(): DeskStore {
     chats: [],
     logins: [],
     stories: [],
+    gifts: [],
+    announcements: [],
   };
 }
 
@@ -266,6 +271,8 @@ function parseStore(raw: string): DeskStore {
     chats: Array.isArray(parsed.chats) ? parsed.chats : [],
     logins: Array.isArray(parsed.logins) ? parsed.logins : [],
     stories: normalizeStories(parsed.stories),
+    gifts: Array.isArray(parsed.gifts) ? parsed.gifts : [],
+    announcements: Array.isArray(parsed.announcements) ? parsed.announcements : [],
   };
 }
 
@@ -293,13 +300,15 @@ async function readStore(): Promise<DeskStore> {
   const remote = await readRemoteStore();
   if (remote) {
     const next = ensureOwner(remote);
-    if (next !== remote) await writeStore(next);
+    const gifted = applyDeskGifts(next);
+    if (next !== remote || gifted) await writeStore(next);
     return next;
   }
   for (const file of readPaths()) {
     try {
       const store = parseStore(await readFile(file, "utf8"));
       const next = ensureOwner(store);
+      applyDeskGifts(next);
       await writeStore(next);
       return next;
     } catch {
@@ -307,6 +316,7 @@ async function readStore(): Promise<DeskStore> {
     }
   }
   const empty = ensureOwner(emptyStore());
+  applyDeskGifts(empty);
   await writeStore(empty);
   return empty;
 }
@@ -315,6 +325,7 @@ async function writeStore(store: DeskStore) {
   let next = store;
   const remote = await readRemoteStore();
   if (remote) next = ensureOwner(mergeStores(remote, store));
+  applyDeskGifts(next);
   const body = JSON.stringify(next, null, 2);
   if (blobConfigured()) {
     try {

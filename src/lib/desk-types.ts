@@ -18,7 +18,7 @@ export type PublicAccount = {
   name: string;
   role: AccountRole;
 };
-export type PassKind = "paid" | "promo";
+export type PassKind = "paid" | "promo" | "gift";
 export type PromoStatus = "pending" | "approved" | "rejected";
 
 export type DeskPassRecord = {
@@ -116,6 +116,24 @@ export type LoginEvent = {
   createdAt: string;
 };
 
+export type DeskGift = {
+  id: string;
+  email: string;
+  months: number;
+  passId: string | null;
+  grantedAt: string | null;
+};
+
+export type DeskAnnouncement = {
+  id: string;
+  email: string;
+  userId?: string;
+  title: string;
+  body: string;
+  createdAt: string;
+  seenAt: string | null;
+};
+
 export type DeskStore = {
   seeded?: boolean;
   users: Account[];
@@ -127,6 +145,8 @@ export type DeskStore = {
   chats: WriterChatMessage[];
   logins: LoginEvent[];
   stories: WireStory[];
+  gifts: DeskGift[];
+  announcements: DeskAnnouncement[];
 };
 
 export type WireStatus = "draft" | "live";

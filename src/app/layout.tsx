@@ -6,6 +6,10 @@ import { NewsUpdatedSince } from "@/components/NewsUpdatedSince";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Ticker } from "@/components/Ticker";
 import { getNewsUpdatedAt } from "@/lib/articles";
+import { getAccount } from "@/lib/account";
+import { unreadGiftNote } from "@/lib/desk-gifts";
+import { getDeskStore } from "@/lib/desk-store";
+import { GiftAnnouncement } from "@/components/GiftAnnouncement";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -39,6 +43,9 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   await connection();
   const since = await getNewsUpdatedAt();
+  const account = await getAccount();
+  const store = await getDeskStore();
+  const giftNote = unreadGiftNote(store, account?.email);
 
   return (
     <html
@@ -46,6 +53,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-50">
+        {giftNote ? <GiftAnnouncement title={giftNote.title} body={giftNote.body} /> : null}
         <Masthead />
         <div className="flex items-stretch border-b border-white/10 bg-zinc-950">
           <NewsUpdatedSince key={since} since={since} />

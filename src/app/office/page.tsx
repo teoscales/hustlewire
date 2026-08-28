@@ -144,12 +144,16 @@ export default async function OfficePage() {
               </div>
               <span
                 className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                  pass.kind === "promo"
+                  pass.kind === "promo" || pass.kind === "gift"
                     ? "bg-[#d8ff3c]/15 text-[#d8ff3c]"
                     : "bg-white/10 text-zinc-200"
                 }`}
               >
-                {pass.kind === "promo" ? "Promo month" : `Paid · ${deskPass.priceLabel}`}
+                {pass.kind === "gift"
+                  ? "Gift"
+                  : pass.kind === "promo"
+                    ? "Promo month"
+                    : `Paid · ${deskPass.priceLabel}`}
               </span>
             </li>
           ))}

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { recordLogin, updateDeskStore } from "@/lib/desk-store";
+import { applyDeskGifts } from "@/lib/desk-gifts";
 import type { Account } from "@/lib/desk-types";
 import { MONTH_SECONDS, accountCookie } from "@/lib/ids";
 import { getAccount, toPublicAccount } from "@/lib/account";
@@ -70,6 +71,7 @@ async function handleAccount(request: Request) {
       };
       store.users.push(account);
       recordLogin(store, account, "signup");
+      applyDeskGifts(store);
       return { account };
     });
     if ("error" in result) {
@@ -84,6 +86,7 @@ async function handleAccount(request: Request) {
       return { error: "Wrong email or password" as const };
     }
     recordLogin(store, account, "login");
+    applyDeskGifts(store);
     return { account };
   });
   if ("error" in result) {
