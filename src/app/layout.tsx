@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Masthead } from "@/components/Masthead";
 import { NewsUpdatedSince } from "@/components/NewsUpdatedSince";
@@ -42,17 +43,17 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   await connection();
-  const since = await getNewsUpdatedAt();
-  const account = await getAccount();
-  const store = await getDeskStore();
-  const giftNote = unreadGiftNote(store, account?.email);
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  const reviewPage = pathname.startsWith("/r/");
 
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable} h-full antialiased`}
-    >
-      <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-50">
+  let body: React.ReactNode = <div className="flex flex-1 flex-col">{children}</div>;
+  if (!reviewPage) {
+    const since = await getNewsUpdatedAt();
+    const account = await getAccount();
+    const store = await getDeskStore();
+    const giftNote = unreadGiftNote(store, account?.email);
+    body = (
+      <>
         {giftNote ? <GiftAnnouncement title={giftNote.title} body={giftNote.body} /> : null}
         <Masthead />
         <div className="flex items-stretch border-b border-white/10 bg-zinc-950">
@@ -61,6 +62,17 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         </div>
         <div className="flex flex-1 flex-col">{children}</div>
         <SiteFooter />
+      </>
+    );
+  }
+
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable} h-full antialiased`}
+    >
+      <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-50">
+        {body}
         <Analytics />
       </body>
     </html>
