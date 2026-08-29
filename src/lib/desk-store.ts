@@ -102,16 +102,32 @@ function mergeStores(remote: DeskStore, local: DeskStore): DeskStore {
   };
 }
 
-async function readRemoteStore() {
+let memoryStore: DeskStore | null = null;
+let memoryAt = 0;
+let storageError = "";
+
+const READ_TTL_MS = 8_000;
+const ERROR_TTL_MS = 30_000;
+
+export function deskStorageError() {
+  return storageError;
+}
+
+async function readRemoteStore(): Promise<{ store: DeskStore | null; error: string | null }> {
   if (blobConfigured()) {
-    const raw = await blobGetDesk();
-    if (raw) return parseStore(raw);
+    const result = await blobGetDesk();
+    if (result.status === "ok") return { store: parseStore(result.body), error: null };
+    if (result.status === "error") return { store: null, error: result.message };
   }
   if (kvConfigured()) {
-    const raw = await kvGetDesk();
-    if (raw) return parseStore(raw);
+    try {
+      const raw = await kvGetDesk();
+      if (raw) return { store: parseStore(raw), error: null };
+    } catch (err) {
+      return { store: null, error: err instanceof Error ? err.message : "Desk storage is unavailable" };
+    }
   }
-  return null;
+  return { store: null, error: null };
 }
 
 export function recordLogin(store: DeskStore, user: Account, kind: "signup" | "login") {
@@ -296,45 +312,75 @@ function normalizeStories(raw: unknown): WireStory[] {
   });
 }
 
-async function readStore(): Promise<DeskStore> {
+async function readStore(opts?: { fresh?: boolean }): Promise<DeskStore> {
+  const now = Date.now();
+  if (
+    !opts?.fresh &&
+    memoryStore &&
+    (storageError ? now - memoryAt < ERROR_TTL_MS : now - memoryAt < READ_TTL_MS)
+  ) {
+    return memoryStore;
+  }
+
   const remote = await readRemoteStore();
-  if (remote) {
-    const next = ensureOwner(remote);
+  storageError = remote.error ?? "";
+
+  if (remote.store) {
+    const next = ensureOwner(remote.store);
     const gifted = applyDeskGifts(next);
-    if (next !== remote || gifted) await writeStore(next);
+    if (next !== remote.store || gifted) await writeStore(next, { persistRemote: true });
+    memoryStore = next;
+    memoryAt = now;
     return next;
   }
+
   for (const file of readPaths()) {
     try {
       const store = parseStore(await readFile(file, "utf8"));
       const next = ensureOwner(store);
       applyDeskGifts(next);
-      await writeStore(next);
+      await writeStore(next, { persistRemote: !remote.error });
+      memoryStore = next;
+      memoryAt = now;
       return next;
     } catch {
       // try the next path
     }
   }
+
+  if (memoryStore) {
+    memoryAt = now;
+    return memoryStore;
+  }
+
   const empty = ensureOwner(emptyStore());
   applyDeskGifts(empty);
-  await writeStore(empty);
+  if (!remote.error) await writeStore(empty, { persistRemote: true });
+  memoryStore = empty;
+  memoryAt = now;
   return empty;
 }
 
-async function writeStore(store: DeskStore) {
+async function writeStore(store: DeskStore, opts?: { persistRemote?: boolean }) {
+  const persistRemote = opts?.persistRemote !== false;
   let next = store;
-  const remote = await readRemoteStore();
-  if (remote) next = ensureOwner(mergeStores(remote, store));
+  if (persistRemote) {
+    const remote = await readRemoteStore();
+    if (remote.store) next = ensureOwner(mergeStores(remote.store, store));
+    if (remote.error) storageError = remote.error;
+  }
   applyDeskGifts(next);
   const body = JSON.stringify(next, null, 2);
-  if (blobConfigured()) {
+  memoryStore = next;
+  memoryAt = Date.now();
+  if (persistRemote && blobConfigured()) {
     try {
       await blobSetDesk(body);
     } catch {
       // Keep local cache if blob is down.
     }
   }
-  if (kvConfigured()) await kvSetDesk(body);
+  if (persistRemote && kvConfigured()) await kvSetDesk(body);
   for (const file of writePaths()) {
     try {
       await mkdir(path.dirname(file), { recursive: true });
@@ -352,9 +398,9 @@ export async function getDeskStore() {
 
 export async function updateDeskStore<T>(fn: (store: DeskStore) => T | Promise<T>) {
   return enqueue(async () => {
-    const store = await readStore();
+    const store = await readStore({ fresh: true });
     const result = await fn(store);
-    await writeStore(store);
+    await writeStore(store, { persistRemote: !storageError });
     return result;
   });
 }

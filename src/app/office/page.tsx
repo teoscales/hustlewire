@@ -4,7 +4,7 @@ import { ReviewList } from "@/components/ReviewList";
 import { WriterApplications, SituationTips } from "@/components/WriterApplications";
 import { OwnerChats } from "@/components/WriterChat";
 import { WireDesk } from "@/components/WireDesk";
-import { activePasses, getDeskStore, officeLogins, officeStats } from "@/lib/desk-store";
+import { activePasses, deskStorageError, getDeskStore, officeLogins, officeStats } from "@/lib/desk-store";
 import { formatMoney, formatWhen } from "@/lib/format";
 import { isOwner } from "@/lib/account";
 import { deskPass } from "@/lib/premium";
@@ -22,6 +22,7 @@ export default async function OfficePage() {
 
   const store = await getDeskStore();
   const stats = officeStats(store);
+  const storageError = deskStorageError();
   const recentSales = [...store.sales]
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, 10);
@@ -42,6 +43,14 @@ export default async function OfficePage() {
         </div>
         <SignOutButton />
       </div>
+
+      {storageError ? (
+        <p className="mt-8 rounded-3xl border border-amber-400/40 bg-amber-400/10 px-5 py-4 text-sm leading-6 text-amber-100">
+          Desk storage is paused on Vercel Blob, so this office is showing an empty copy. The old
+          sales, logins, and passes are still in the <span className="text-white">hustlewire-desk</span>{" "}
+          store. Unblock it in the Vercel Blob dashboard, then refresh this page.
+        </p>
+      ) : null}
 
       <WireDesk
         initial={(store.stories ?? [])
