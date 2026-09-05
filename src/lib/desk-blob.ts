@@ -3,6 +3,7 @@ import { get, put } from "@vercel/blob";
 const PATH = "hustlewire-desk.json";
 
 export function blobConfigured() {
+  if (process.env.RAILWAY_ENVIRONMENT) return false;
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 

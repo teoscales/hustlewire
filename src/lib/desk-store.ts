@@ -230,11 +230,20 @@ const storeDir = path.join(process.cwd(), "data");
 const storePath = path.join(storeDir, "desk.json");
 const tmpPath = path.join("/tmp", "hustlewire-desk.json");
 
+function persistentPath() {
+  const dir = process.env.RAILWAY_VOLUME_MOUNT_PATH || process.env.DESK_DATA_DIR;
+  return dir ? path.join(dir, "hustlewire-desk.json") : null;
+}
+
 function readPaths() {
+  const volume = persistentPath();
+  if (volume) return [volume, storePath];
   return process.env.VERCEL ? [tmpPath, storePath] : [storePath, tmpPath];
 }
 
 function writePaths() {
+  const volume = persistentPath();
+  if (volume) return [volume];
   return process.env.VERCEL ? [tmpPath] : [storePath];
 }
 
